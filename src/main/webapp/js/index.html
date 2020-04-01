@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert</title>
+</head>
+<body>
+    <p>I would like to say: </p>
+ 
+<script>
+$( "p" ).append( "<strong>Hello</strong>" );
+
+<table>
+<c:forEach var="event" items="${items}">
+
+	<tr>
+	<th>Azonosító</th>
+	<th>Típus</th>
+	</tr>
+	
+	<tr>
+	<td>${event.id}</td>
+	</tr>
+</c:forEach>
+</table>
+</script>
+</body>
+</html>
