@@ -13,10 +13,10 @@ public class OrderingHoursController {
 	OrderingHoursRepository repo;
 	
 	
-	@RequestMapping("/ohtest")
+	@RequestMapping("/test")
 	public String Index() {
 		
-		return "index.jsp";
+		return "booking.jsp";
 		
 		
 	}

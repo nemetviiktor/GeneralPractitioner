@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gp.Generalpractitioner.DAO.EventRepository;
+import com.gp.Generalpractitioner.DAO.OrderingHoursRepository;
 import com.gp.Generalpractitioner.Model.Event;
+import com.gp.Generalpractitioner.Model.OrderingHours;
 
 
 @Controller
@@ -21,13 +23,14 @@ public class EventController {
 	@Autowired
 	EventRepository repo;
 	
+	@Autowired
+	OrderingHoursRepository ohrepo;
+	
 	
 	@RequestMapping("/")
 	public String Index() {
 		
 		return "index.jsp";
-		
-		
 	}
 	
 	@RequestMapping("/bs")
@@ -38,13 +41,11 @@ public class EventController {
 		
 	}
 	
-	
 	@RequestMapping("/back")
 	public String Back() {
 		
 		return "index.jsp";
 	}
-	
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String getAllItem2(Model model){
@@ -63,9 +64,11 @@ public class EventController {
 	@RequestMapping(value="/showItems",method=RequestMethod.GET)
 	public String getAllItem(Model model){
 	model.addAttribute("items",getItems());
+	model.addAttribute("ohours", getOHours());
 	return "booking.jsp";	
 	
 	}
+	
 	public List<Event> getItems(){
 		List<Event> items = repo.findAll();
 		
@@ -73,8 +76,14 @@ public class EventController {
 		
 	}
 	
+	public List<OrderingHours> getOHours() {
+		List<OrderingHours> ohours = ohrepo.findAll();
+		
+		return ohours;
+	}
 	
 	
+
 	public List<Event> getItemsByDate(){
 		java.util.Date date = null;
 		List<Event> items = repo.findAllByDate(date);
@@ -82,7 +91,7 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/showSelected", method=RequestMethod.GET )
-	public ModelAndView getUser(@RequestParam int eventid){
+	public ModelAndView getEvent(@RequestParam int eventid){
 		
 		ModelAndView mv = new ModelAndView("showSelected.jsp");
 		Event event = repo.findById(eventid).orElse(new Event());

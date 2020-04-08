@@ -43,7 +43,7 @@
               </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="booking.jsp">Foglalás</a>
+          <a class="nav-link" href="showItems">Foglalás</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Rendelő</a>
