@@ -23,12 +23,18 @@ public class Event {
 	private int Id;
 	
 	
-	@Column(name="description")
-	private String description;
+	@Column(name="taj")
+	private String taj;
+	
+	@Column(name="name")
+	private String name;
 	
     
 	@Column(name="date")
 	private Date date;
+	
+	@Column(name="counter")
+	private int counter;
 	
 	@Column(name="time")
 	private String time;
@@ -41,12 +47,20 @@ public class Event {
 		Id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getTaj() {
+		return taj;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTaj(String taj) {
+		this.taj = taj;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getDate() {
@@ -57,6 +71,14 @@ public class Event {
 		this.date = date;
 	}
 
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
+	}
+
 	public String getTime() {
 		return time;
 	}
@@ -64,14 +86,10 @@ public class Event {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
-	
-
 
 	@Override
 	public String toString() {
-		return "Event [Id=" + Id + ", description=" + description + ", date=" + date + ", time=" + time + "]";
+		return "Event [Id=" + Id + ", taj=" + taj + ", name=" + name + ", date=" + date + ", counter=" + counter
+				+ ", time=" + time + "]";
 	}
-
-	
 }

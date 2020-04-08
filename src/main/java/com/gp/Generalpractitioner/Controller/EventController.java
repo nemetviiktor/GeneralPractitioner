@@ -99,7 +99,7 @@ public class EventController {
 		return mv;
 	}
 	
-
+	/*
 	@RequestMapping(value="/selected", method=RequestMethod.GET )
 	public ModelAndView getItem(@RequestParam String description){
 		
@@ -109,5 +109,5 @@ public class EventController {
 		
 		return mv;
 	}
-
+	*/
 }
