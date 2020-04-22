@@ -2,10 +2,15 @@ package com.gp.Generalpractitioner.Controller;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,19 +38,28 @@ public class EventController {
 		return "index.jsp";
 	}
 	
-	@RequestMapping("/bs")
-	public String Bootstrap() {
-		
-		return "bs.jsp";
-		
-		
-	}
 	
 	@RequestMapping("/back")
 	public String Back() {
 		
 		return "index.jsp";
 	}
+	
+	
+	//Rendelési nap törlés
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable("id") int id) {
+        ohrepo.deleteById(id);
+        return "/";
+    }
+	
+	//Módosítás
+	@RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+	public String edit(Model model){
+		model.addAttribute("ohours", getOHours());
+		return "edit";	
+	}
+	
 	
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String getAllItem2(Model model){

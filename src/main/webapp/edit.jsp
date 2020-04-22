@@ -66,65 +66,13 @@
 </header>
 
 <!-- Page Content -->
-	<section class="py-5">
-	<h2 class="font-weight-light">Rendelési idő:</h2>
-	<table class="table table-striped table-dark">
-		<c:forEach var="ohours" items="${ohours}">
-  			<tbody>
-    			<tr>
-      				<td>${ohours.day}</td>
-      				<td>${ohours.start} - ${ohours.end}</td>
-      				<td><a href="<c:url value='/edit/${ohours.id}' />">Edit</a>
-    			</tr>
-  			</tbody>
-  		</c:forEach>
-	</table>
-	</section>
-	<h2>Melyik napon szeretne foglalni?</h2>
-		<form action="selectedDate">
-		<p><input type="date" required name="date" id="date"/></p>
-				<input type="submit" value="OK">
-	</form>
-	
-	<h3>**DONT WORKING**</h3>
-	<h2>Leírás alapján keresés</h2>
-	<p><form action = "selected">
-		<input type="text" name="description">
-		<input type="submit" value="OK">
-	</form></p>
-    <h3>**DONT WORKING**</h3>
-    <br></br>
-    
-    <table>
-		<c:forEach var="event" items="${items}">
-      
-  		<tr>
-    		<th>Azonosító</th>
-  		</tr>
-  		
-  		<tr>
-    		<td>${event.id}</td>
-  		</tr>
-		</c:forEach>
-	</table>
 
-	
-	
-	
-    
-
-	
-	<h1>Az adatbázis elemei:</h1>
-	<form action="showSelected">
-	<c:forEach var="event" items="${items}">
-   <span><input type="submit" name="eventid" value="${event.id}"></span>
-
-    </c:forEach>
-    </form>
-    
-	<p><form action="back">
-  		<input type="submit" value="Vissza">
-	</form></p>
+	<form action = "main.jsp" method = "POST">
+         First Name: <input type = "text" name = "first_name">
+         <br />
+         Last Name: <input type = "text" name = "last_name" />
+         <input type = "submit" value = "Submit" />
+      </form>
 
 </body>
 </html>
