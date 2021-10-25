@@ -1,5 +1,6 @@
 package com.gp.Generalpractitioner.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,8 +27,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return appointmentRepository.findAll();
 	}
 	
+
 	@Override
-	public List<String> findByDate(String date) {
+	public List<String> findByDate(Date date) {
 		
 		ArrayList<Appointment> reservedAppointments = new ArrayList<Appointment>();
 		reservedAppointments.addAll(appointmentRepository.findByDate(date));
@@ -69,7 +71,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}
 		return freeAppointments;
 	}
-
+	
 	@Override
 	public Appointment saveAppointment(AppointmentDTO appointmentDTO) {
 		return appointmentRepository.save(convertAppointmentDTOtoAppointment(appointmentDTO));
@@ -80,14 +82,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointment.setLast_name(appointmentDTO.getLast_name());
 		appointment.setFirst_name(appointmentDTO.getFirst_name());
 		appointment.setTaj(appointmentDTO.getTaj());
-		appointment.setDate(appointmentDTO.getDate().replaceAll("-", "."));
+		appointment.setDate(appointmentDTO.getDate());
 		appointment.setTime(appointmentDTO.getTime());
 		appointment.setCounter(appointmentDTO.getCounter());
 		return appointment;
 	}
-
+	
 	@Override
-	public List<Appointment> findByDateAdmin(String date) {
+	public List<Appointment> findByDateAdmin(Date date) {
 		List<Appointment> reservedAppointments = new ArrayList<Appointment>();
 		reservedAppointments.addAll(appointmentRepository.findByDate(date));
 		return reservedAppointments;
@@ -103,7 +105,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointmentRepository.deleteById(id);
 		return id + " appointment deleted";
 	}
-
 
 	
 }

@@ -4,7 +4,7 @@ package com.gp.Generalpractitioner.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,33 +41,40 @@ public class AppointmentController {
 	}
 
 	@RequestMapping(value = "/appointments")
-	public ModelAndView getFreeAppointmentsGivenDay(@RequestParam String date) throws ParseException {
+	public ModelAndView getFreeAppointmentsGivenDay(@RequestParam Date date) throws ParseException {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("freeappointments");
-		DateFormat outputFormat = new SimpleDateFormat("yyyy.MM.dd.");
+		
 		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateDate = inputFormat.parse(date);
-		String selectedDate = outputFormat.format(dateDate);
-		mav.addObject("date", selectedDate);
-		mav.addObject("appointments", appointmentService.findByDate(selectedDate));
-		//mav.addObject("appointmentDTO", new AppointmentDTO());
+		String dateString = inputFormat.format(date);
+		String replaceDate = dateString.replace("-", ".");
+		
+		mav.addObject("displayDate", replaceDate);
+		mav.addObject("date", date);
+		mav.addObject("appointments", appointmentService.findByDate(date));
 		return mav;
 	}
 	
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
-	public ModelAndView reserve(@RequestParam("date") String date, @RequestParam("time") String time, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
+	public ModelAndView reserve(@RequestParam("date") Date date, @RequestParam("time") String time, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("bookingdetails");
+		
+		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = inputFormat.format(date);
+		String replaceDate = dateString.replace("-", ".");
+		
 		appointmentDTO.setDate(date);
 		appointmentDTO.setTime(time);
+		mav.addObject("displayDate", replaceDate);
 		mav.addObject("date", date);
 		mav.addObject("time", time);
 		mav.addObject(appointmentDTO);
 		return mav;
 	}
-	
+
 	@PostMapping("/reserveAppointment")
-	public ModelAndView reserveAppointment(@RequestParam("date") String date, @RequestParam("time") String time, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
+	public ModelAndView reserveAppointment(@RequestParam("date") Date date, @RequestParam("time") String time, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
 		
 		appointmentDTO.setDate(date);
 		
@@ -95,36 +102,37 @@ public class AppointmentController {
 	}
 	
 	@RequestMapping("admin/adminAppointments")
-	public ModelAndView getFreeAppointmentsGivenDayAdmin() {
+	public ModelAndView getFreeAppointmentsGivenDayAdmin() throws ParseException {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("appointment", appointmentService.listAppointments());
 		mav.addObject("appointmentDTO", new AppointmentDTO());
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd.");  
-		Date today = new Date();
-		String dateToday = formatter.format(today);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy.MM.dd."); 
+		java.util.Date today = new java.util.Date();
+		String dateString1 = formatter.format(today);
+		Date date = Date.valueOf(dateString1);
+		String displayDate = formatter2.format(today);
 		mav.setViewName("adminAppointments");
-		mav.addObject("date", dateToday);
-		mav.addObject("appointments", appointmentService.findByDateAdmin(dateToday));
-		//mav.addObject("appointmentDTO", new AppointmentDTO());
+		mav.addObject("displayDate", displayDate);
+		mav.addObject("appointments", appointmentService.findByDateAdmin(date));
 		return mav;
 	}
 	
 	@RequestMapping(value = "admin/selectedDayAdmin")
-	public ModelAndView getReservedAppointmentsGivenDay(@RequestParam String date) throws ParseException {
+	public ModelAndView getReservedAppointmentsGivenDay(@RequestParam Date date) throws ParseException {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("appointment", appointmentService.listAppointments());
 		mav.addObject("appointmentDTO", new AppointmentDTO());
 		mav.setViewName("adminReservedAppointments");
-		DateFormat outputFormat = new SimpleDateFormat("yyyy.MM.dd.");
+		
 		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateDate = inputFormat.parse(date);
-		String selectedDate = outputFormat.format(dateDate);
-		mav.addObject("date", selectedDate);
-		mav.addObject("appointments", appointmentService.findByDateAdmin(selectedDate));
-		//mav.addObject("appointmentDTO", new AppointmentDTO());
+		String dateString = inputFormat.format(date);
+		String displayDate = dateString.replace("-", ".");
+		
+		mav.addObject("displayDate", displayDate);
+		mav.addObject("appointments", appointmentService.findByDateAdmin(date));
 		return mav;
 	}
-	
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ModelAndView delete(@RequestParam("id") int id) {

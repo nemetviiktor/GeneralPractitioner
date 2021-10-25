@@ -1,5 +1,6 @@
 package com.gp.Generalpractitioner.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,15 +12,16 @@ public interface AppointmentService {
 	
 	public List<Appointment> listAppointments();
 	
-	public List<String> findByDate(String date);
+	public List<String> findByDate(Date date);
 	
 	public Appointment saveAppointment(AppointmentDTO appointmentDTO);
 	
-	public List<Appointment> findByDateAdmin(String date);
+	public List<Appointment> findByDateAdmin(Date date);
 	
 	public Optional<Appointment> findById(int id);
 	
 	public String deleteAppointment(int id);
+
 	
 	
 

@@ -1,5 +1,6 @@
 package com.gp.Generalpractitioner.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	
 	public List<Appointment> findAll();
 	
-	public List<Appointment> findByDate(String date);
+	public List<Appointment> findByDate(Date date);
 	
 }

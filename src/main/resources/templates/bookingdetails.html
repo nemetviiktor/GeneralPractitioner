@@ -51,7 +51,7 @@
       <section class="py-5">
          <div class="container">
             <div class="col-xl-7 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
-               <h2 class="font-weight-light" style="text-align:center"><a th:text="${date}"></a> <a th:text="${time}"></a> időpont foglalása</h2>
+               <h2 class="font-weight-light" style="text-align:center"><a th:text="${displayDate}"></a>. <a th:text="${time}"></a> időpont foglalása</h2>
                <form th:action="@{/reserveAppointment(date=${date},time=${time})}" method="post" th:object="${appointmentDTO}">
                   <div class="form-group row">
                      <label for="last_name" class="col-sm-2 col-form-label">Vezetéknév</label>

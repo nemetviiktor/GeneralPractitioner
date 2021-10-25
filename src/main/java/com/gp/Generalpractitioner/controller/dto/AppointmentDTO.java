@@ -17,7 +17,7 @@ public class AppointmentDTO {
 	
 	private String taj;
 	
-	private String date;
+	private Date date;
 	
 	private String time;
 	
@@ -61,13 +61,13 @@ public class AppointmentDTO {
 
 
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
 
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -96,7 +96,7 @@ public class AppointmentDTO {
 
 
 
-	public AppointmentDTO(String last_name, String first_name, String taj, String date, String time, Integer counter) {
+	public AppointmentDTO(String last_name, String first_name, String taj, Date date, String time, Integer counter) {
 		super();
 		this.last_name = last_name;
 		this.first_name = first_name;

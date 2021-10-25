@@ -30,7 +30,7 @@ public class Appointment {
 	private String taj;
 	
 	@Column(name="date")
-	private String date;
+	private Date date;
 	
 	@Column(name="counter")
 	private int counter;
@@ -70,11 +70,11 @@ public class Appointment {
 		this.taj = taj;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
