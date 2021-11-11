@@ -3,19 +3,18 @@ package com.gp.Generalpractitioner.controller.dto;
 public class NewsDTO {
 	
 	private String date;
-	
 	private String title;
-	
 	private String description;
+	private Integer idUser;
 
 	public String getDate() {
 		return date;
 	}
-
+	
 	public void setDate(String date) {
 		this.date = date;
 	}
-
+	
 	public String getTitle() {
 		return title;
 	}
@@ -32,14 +31,21 @@ public class NewsDTO {
 		this.description = description;
 	}
 
-	public NewsDTO(String date, String title, String description) {
-		super();
+	public Integer getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
+	}
+
+	public NewsDTO(String date, String title, String description, Integer idUser) {
 		this.date = date;
 		this.title = title;
 		this.description = description;
+		this.idUser = idUser;
 	}
 
 	public NewsDTO() {
-		super();
 	}
 }

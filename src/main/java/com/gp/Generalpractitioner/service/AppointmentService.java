@@ -10,7 +10,7 @@ import com.gp.Generalpractitioner.model.Appointment;
 
 public interface AppointmentService {
 	
-	public List<Appointment> listAppointments();
+	public Iterable<Appointment> listAppointments();
 	
 	public List<String> findByDate(Date date);
 	
@@ -20,9 +20,5 @@ public interface AppointmentService {
 	
 	public Optional<Appointment> findById(int id);
 	
-	public String deleteAppointment(int id);
-
-	
-	
-
+	public String deleteAppointment(int id);	
 }

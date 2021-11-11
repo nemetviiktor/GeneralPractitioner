@@ -90,7 +90,7 @@
          <div class="container">
             <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
                <div class="p-3"><i class="fa fa-calendar fa-5x"></i></div>
-               <form class="justify-content-center" th:action="@{selectedDayAdmin}" method="post" th:object="${appointmentDTO}">
+               <form class="justify-content-center" th:action="@{adminReservedAppointments}" method="post" th:object="${appointmentDTO}">
                   <div class="form-group row">
                      <h3>Melyik napot szeretné lekérdezni?</h3>
                   </div>
@@ -118,14 +118,13 @@
                   </tr>
                </thead>
                <tbody>
-                  <tr th:each="appointment: ${appointments}">
+                  <tr th:each="appointment,iterStat : ${appointments}">
                      <td><a th:text="${appointment.time}"></a></td>
-                     <td><a th:text="${appointment.last_name}"></a></td>
-                     <!--  th:href="@{/reserve(date=${date},time=${appointment})}" -->
-                     <td><a th:text="${appointment.first_name}"></a></td>
-                     <td><a th:text="${appointment.taj}"></a></td>
+                     <td><a th:text="${patients[iterStat.index].lastName}"></a></td>
+                     <td><a th:text="${patients[iterStat.index].firstName}"></a></td>
+                     <td><a th:text="${patients[iterStat.index].socialSecurityNumber}"></a></td>
                      <td>Módosítás</td>
-                     <td><a th:href="@{/delete(id=${appointment.id})}" class="btn btn-danger">Időpont törlése</a></td>
+                     <td><a th:href="@{/delete(id=${appointment.idAppointment})}" class="btn btn-danger">Időpont törlése</a></td>
                      <!-- th:href="@{/delete(id=${user.id})}" -->
                   </tr>
                </tbody>

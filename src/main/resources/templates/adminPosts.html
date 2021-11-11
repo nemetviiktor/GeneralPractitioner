@@ -1,111 +1,118 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="UTF-8">
-      <title>Új bejegyzés létrehozása</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-      <style>
-         .navbar-custom .navbar-brand,
-         .navbar-custom .navbar-text {
-         color: red;
-         }
-         .masthead {
-         height: 2vh;
-         }
-         #logoutButton {
-         background-color: #ccc;
-         -moz-border-radius: 5px;
-         -webkit-border-radius: 5px;
-         border-radius:6px;
-         color: #fff;
-         font-family: 'Oswald';
-         font-size: 20px;
-         text-decoration: none;
-         cursor: poiner;
-         border:none;
-         }
-         #logoutButton:hover {
-         border: none;
-         background:red;
-         box-shadow: 0px 0px 1px #777;
-         }
-      </style>
-   </head>
-   <body>
-      <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-         <div class="container">
-            <a class="navbar-brand" href="#">Szendrőlád</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                     <a class="nav-link" href="/">Kezdőlap</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="navbar-brand" href="#">Bejegyzések
-                     <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="admin/adminAppointments">Időpont menedzselés</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Receptírás</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Dokumentumok</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link">
-                        <form th:action="@{/logout}" method="post">
-                           <input type="submit" id="logoutButton" value="Kijelentkezés" />
-                        </form>
-                     </a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-      <!-- Full Page Image Header with Vertically Centered Content -->
-      <header class="masthead">
-      </header>
-      <!-- Page Content -->
-      <!--  
+<head>
+<meta charset="UTF-8">
+<title>Új bejegyzés létrehozása</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+.navbar-custom .navbar-brand, .navbar-custom .navbar-text {
+	color: red;
+}
+
+.masthead {
+	height: 2vh;
+}
+
+#logoutButton {
+	background-color: #ccc;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 6px;
+	color: #fff;
+	font-family: 'Oswald';
+	font-size: 20px;
+	text-decoration: none;
+	cursor: poiner;
+	border: none;
+}
+
+#logoutButton:hover {
+	border: none;
+	background: red;
+	box-shadow: 0px 0px 1px #777;
+}
+</style>
+</head>
+<body>
+	<!-- Navigation -->
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Szendrőlád</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Kezdőlap</a>
+					</li>
+					<li class="nav-item"><a class="navbar-brand" href="#">Bejegyzések
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="admin/adminReservedAppointments">Időpont menedzselés</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Receptírás</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Dokumentumok</a>
+					</li>
+					<li class="nav-item"><a class="nav-link">
+							<form th:action="@{/logout}" method="post">
+								<input type="submit" id="logoutButton" value="Kijelentkezés" />
+							</form>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Full Page Image Header with Vertically Centered Content -->
+	<header class="masthead"> </header>
+	<!-- Page Content -->
+	<!--  
          <section class="py-5">
          
          <!--h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3-->
-      <section class="py-5">
-         <div class="container">
-            <div class="text-center p-3">
-               <h2 class="font-weight-light">Új bejegyzés létrehozása</h2>
-            </div>
-            <form th:action="@{/newPost}" method="post" th:object="${newsDTO}">
-               <div class="form-group row">
-                  <label for="title" class="col-sm-2 col-form-label">Cím</label>
-                  <div class="col-sm-10">
-                     <input type="text" class="form-control" id="title" th:field="*{title}">
-                  </div>
-               </div>
-               <div class="form-group row">
-                  <label for="description" class="col-sm-2 col-form-label">Leírás</label>
-                  <div class="col-sm-10">
-                     <textarea rows="3" class="form-control" id="description" th:field="*{description}"></textarea>
-                  </div>
-               </div>
-               <button type="submit" class="btn btn-primary btn-lg btn-block">Küldés</button>
-            </form>
-         </div>
-      </section>
-      <div class="jumbotron text-center" style="margin-bottom:0">
-         <p>Footer</p>
-      </div>
-   </body>
+	<section class="py-5">
+		<div class="container">
+			<div class="text-center p-3">
+				<h2 class="font-weight-light">Új bejegyzés létrehozása</h2>
+			</div>
+			<form th:action="@{/newPost}" method="post" th:object="${newsDTO}">
+				<div class="form-group row">
+					<label for="title" class="col-sm-2 col-form-label">Cím</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="title"
+							th:field="*{title}">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="description" class="col-sm-2 col-form-label">Leírás</label>
+					<div class="col-sm-10">
+						<textarea rows="3" class="form-control" id="description"
+							th:field="*{description}"></textarea>
+					</div>
+				</div>
+				<input type="hidden" th:field="*{idUser}">
+				<button type="submit" class="btn btn-primary btn-lg btn-block">Küldés</button>
+			</form>
+		</div>
+	</section>
+	<div class="jumbotron text-center" style="margin-bottom: 0">
+		<p>Footer</p>
+	</div>
+</body>
 </html>

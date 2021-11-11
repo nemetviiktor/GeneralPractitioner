@@ -8,7 +8,7 @@ import com.gp.Generalpractitioner.model.News;
 
 public interface NewsService {
 
-	public List<News> listNews();
+	public Iterable<News> listNews();
 	
 	public News saveNews(NewsDTO newsDTO);
 	

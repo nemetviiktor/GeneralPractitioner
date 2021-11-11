@@ -20,21 +20,13 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public List<News> listNews() {
+	public Iterable<News> listNews() {
 		return newsRepository.findAll();
 	}
 
-
 	@Override
 	public News saveNews(NewsDTO newsDTO) {
-		return newsRepository.save(convertNewsDTOtoNews(newsDTO));
+		return newsRepository.save(new NewsUtil().convertNewsDTOtoNews(newsDTO));
 	}
-	
-	private News convertNewsDTOtoNews(NewsDTO newsDTO) {
-		News news = new News();
-		news.setDate(newsDTO.getDate());
-		news.setTitle(newsDTO.getTitle());
-		news.setDescription(newsDTO.getDescription());
-		return news;
-	}
+
 }

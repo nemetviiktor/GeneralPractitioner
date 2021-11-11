@@ -12,9 +12,9 @@ import javax.persistence.Table;
 public class News {
 	
 	@Id
-	@Column(name="idnews")
+	@Column(name="news_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idnews;
+	private Integer idNews;
 	
 	@Column(name="date")
 	private String date;
@@ -24,13 +24,20 @@ public class News {
 	
 	@Column(name="description")
 	private String description;
-
+	
+	@Column(name="fk_user_id")
+	private Integer idUser;
+	
 	public Integer getIdnews() {
-		return idnews;
+		return idNews;
 	}
 
-	public void setIdnews(Integer idnews) {
-		this.idnews = idnews;
+	public Integer getIdNews() {
+		return idNews;
+	}
+
+	public void setIdNews(Integer idNews) {
+		this.idNews = idNews;
 	}
 
 	public String getDate() {
@@ -57,8 +64,11 @@ public class News {
 		this.description = description;
 	}
 
-	@Override
-	public String toString() {
-		return "News [idnews=" + idnews + ", date=" + date + ", title=" + title + ", description=" + description + "]";
+	public Integer getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
 }
