@@ -1,17 +1,19 @@
 package com.gp.Generalpractitioner.controller.dto;
 
+import java.sql.Date;
+
 public class NewsDTO {
 	
-	private String date;
+	private Date date;
 	private String title;
 	private String description;
 	private Integer idUser;
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	
@@ -39,7 +41,7 @@ public class NewsDTO {
 		this.idUser = idUser;
 	}
 
-	public NewsDTO(String date, String title, String description, Integer idUser) {
+	public NewsDTO(Date date, String title, String description, Integer idUser) {
 		this.date = date;
 		this.title = title;
 		this.description = description;

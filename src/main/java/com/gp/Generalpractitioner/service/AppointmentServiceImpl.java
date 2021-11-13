@@ -49,14 +49,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return appointmentRepository.save(new AppointmentUtil().convertAppointmentDTOtoAppointment(appointmentDTO));
 	}
 	
-
-	/*
-	private User saveUser(AppointmentDTO appointmentDTO) {
-		User user = new User();
-		user.setAppointmentid(appointmentDTO.get);
-		return null;
-	}
-	*/
 	@Override
 	public List<Appointment> findByDateAdmin(Date date) {
 		List<Appointment> reservedAppointments = new ArrayList<Appointment>();

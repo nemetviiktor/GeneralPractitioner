@@ -75,7 +75,7 @@
          <div class="row justify-content-md-center">
             <div class="col-sm">
                <h2 th:text="${news.title}"/>
-               <p class="float-right" th:text="${news.date}"/>
+               <p class="float-right" th:text="${#dates.format(news.date, 'yyyy.MM.dd.')}"/>
                <p th:text="${news.description}"/>
                <hr>
             </div>

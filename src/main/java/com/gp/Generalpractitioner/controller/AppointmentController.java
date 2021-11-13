@@ -39,6 +39,16 @@ public class AppointmentController {
 		this.patientService = patientService;
 	}
 
+	
+	
+	
+	
+	//DATET ÁTNÉZNI
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/booking")
 	public ModelAndView getAllApointments() {
 		ModelAndView mav = new ModelAndView();

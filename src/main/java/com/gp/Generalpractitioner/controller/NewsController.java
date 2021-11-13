@@ -1,8 +1,5 @@
 package com.gp.Generalpractitioner.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gp.Generalpractitioner.controller.dto.NewsDTO;
-import com.gp.Generalpractitioner.model.User;
 import com.gp.Generalpractitioner.security.MyUserDetails;
+import com.gp.Generalpractitioner.service.DateUtil;
 import com.gp.Generalpractitioner.service.NewsService;
 
 @Controller
@@ -30,19 +27,15 @@ public class NewsController {
 	public ModelAndView admin(@AuthenticationPrincipal MyUserDetails user) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("adminPosts");
-		mav.addObject("user", user);
-		NewsDTO newsDTO = new NewsDTO(null, null, null, user.getId());  // itt megkapja az értéket, a serviceben nem
-		mav.addObject("newsDTO", newsDTO);
+		mav.addObject("newsDTO", new NewsDTO());
 		return mav;
 	}
 
 	@PostMapping("/newPost")
-	public ModelAndView newPost(@ModelAttribute("newsDTO") NewsDTO newsDTO) {
-		Date date = new Date(); // .toString()
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.");
-		String today = sdf.format(date);
-		newsDTO.setDate(today);
-
+	public ModelAndView newPost(@ModelAttribute("newsDTO") NewsDTO newsDTO,
+			@AuthenticationPrincipal MyUserDetails user) {
+		newsDTO.setIdUser(user.getId());
+		newsDTO.setDate(new DateUtil().getCurrentDate());
 		newsService.saveNews(newsDTO);
 		return new ModelAndView("redirect:/");
 	}

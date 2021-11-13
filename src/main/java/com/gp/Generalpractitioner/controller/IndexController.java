@@ -1,5 +1,7 @@
 package com.gp.Generalpractitioner.controller;
 
+import java.text.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +21,8 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String Index(Model model) {
+	public String Index(Model model) throws ParseException {
 		model.addAttribute("news", newsService.listNews());
 		return "index";
-	}
-
-	@RequestMapping("/login")
-	public String login() {
-
-		return "login";
 	}
 }

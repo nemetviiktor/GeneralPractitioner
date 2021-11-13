@@ -1,6 +1,5 @@
 package com.gp.Generalpractitioner.service;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -9,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gp.Generalpractitioner.controller.dto.AppointmentDTO;
-import com.gp.Generalpractitioner.controller.dto.PatientDTO;
 import com.gp.Generalpractitioner.model.Appointment;
-import com.gp.Generalpractitioner.model.Patient;
 
 public class AppointmentUtil {
 
@@ -24,7 +21,7 @@ public class AppointmentUtil {
 	}
 
 	public List<String> getAllString() {
-		List<String> freeAppointments = new ArrayList();
+		List<String> freeAppointments = new ArrayList<String>();
 
 		freeAppointments.add("08:00");
 		freeAppointments.add("08:15");
@@ -49,11 +46,10 @@ public class AppointmentUtil {
 	public Integer generateIndex(AppointmentDTO appointmentDTO) {
 		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString = inputFormat.format(appointmentDTO.getDate());
-		String replaceDate = dateString.replace("-", "");
-		String append = (new StringBuilder().append(Integer.parseInt(replaceDate)).append(appointmentDTO.getCounter()))
+		String replacedDate = dateString.replace("-", "");
+		String index = (new StringBuilder().append(Integer.parseInt(replacedDate)).append(appointmentDTO.getCounter()))
 				.toString();
-		Integer dateInt = Integer.parseInt(append);
-		return dateInt;
+		return Integer.parseInt(index);
 	}
 
 	public Appointment convertAppointmentDTOtoAppointment(AppointmentDTO appointmentDTO) {

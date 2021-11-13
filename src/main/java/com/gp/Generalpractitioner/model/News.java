@@ -1,5 +1,7 @@
 package com.gp.Generalpractitioner.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class News {
 	private Integer idNews;
 	
 	@Column(name="date")
-	private String date;
+	private Date date;
 	
 	@Column(name="title")
 	private String title;
@@ -40,11 +42,11 @@ public class News {
 		this.idNews = idNews;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

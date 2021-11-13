@@ -1,7 +1,5 @@
 package com.gp.Generalpractitioner.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +11,7 @@ import com.gp.Generalpractitioner.repository.NewsRepository;
 public class NewsServiceImpl implements NewsService {
 
 	private NewsRepository newsRepository;
-	
+
 	@Autowired
 	public NewsServiceImpl(NewsRepository newsRepository) {
 		this.newsRepository = newsRepository;
@@ -28,5 +26,4 @@ public class NewsServiceImpl implements NewsService {
 	public News saveNews(NewsDTO newsDTO) {
 		return newsRepository.save(new NewsUtil().convertNewsDTOtoNews(newsDTO));
 	}
-
 }
