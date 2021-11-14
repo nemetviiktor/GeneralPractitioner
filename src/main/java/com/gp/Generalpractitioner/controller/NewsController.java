@@ -1,8 +1,11 @@
 package com.gp.Generalpractitioner.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +27,7 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/admin")
-	public ModelAndView admin(@AuthenticationPrincipal MyUserDetails user) {
+	public ModelAndView admin() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("adminPosts");
 		mav.addObject("newsDTO", new NewsDTO());
@@ -32,12 +35,16 @@ public class NewsController {
 	}
 
 	@PostMapping("/newPost")
-	public ModelAndView newPost(@ModelAttribute("newsDTO") NewsDTO newsDTO,
+	public ModelAndView newPost(@Valid @ModelAttribute("newsDTO") NewsDTO newsDTO, BindingResult bindingResult,
 			@AuthenticationPrincipal MyUserDetails user) {
-		newsDTO.setIdUser(user.getId());
-		newsDTO.setDate(new DateUtil().getCurrentDate());
-		newsService.saveNews(newsDTO);
-		return new ModelAndView("redirect:/");
+		
+		if (!bindingResult.hasErrors()) {
+			newsDTO.setIdUser(user.getId());
+			newsDTO.setDate(new DateUtil().getCurrentDate());
+			newsService.saveNews(newsDTO);
+			return new ModelAndView("redirect:/admin");
+		}
+		return new ModelAndView("adminPosts").addObject("newsDTO", newsDTO);
 	}
 
 }

@@ -2,11 +2,19 @@ package com.gp.Generalpractitioner.controller.dto;
 
 import java.sql.Date;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class NewsDTO {
 	
 	private Date date;
+	
+	@NotEmpty(message = "Kérem adja meg a címet!")
 	private String title;
+	
+	@NotEmpty(message = "Kérem adja meg a leírást!")
 	private String description;
+	
 	private Integer idUser;
 
 	public Date getDate() {
@@ -41,7 +49,9 @@ public class NewsDTO {
 		this.idUser = idUser;
 	}
 
-	public NewsDTO(Date date, String title, String description, Integer idUser) {
+	public NewsDTO(Date date, @NotEmpty(message = "Kérem adja meg a címet!") String title,
+			@NotEmpty(message = "Kérem adja meg a leírást!") String description, Integer idUser) {
+		super();
 		this.date = date;
 		this.title = title;
 		this.description = description;
