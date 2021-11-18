@@ -1,12 +1,30 @@
 package com.gp.Generalpractitioner.controller.dto;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.NumberFormat;
+
+
 public class PatientDTO {
 	
+	@NotEmpty(message = "Kérem adja meg a vezetéknevét!")
+	@Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.")
 	private String lastName;
-	private String firstName;
-	private Integer socialSecurityNumber;
-	private Integer idAppointment;
 	
+	@NotEmpty(message = "Kérem adja meg a keresztnevét!")
+	@Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.")
+	private String firstName;
+	
+	//@NotNull(message = "Kérem adja meg a TAJ számát!")
+	@Pattern(regexp="[\\d]{9}", message = "Kérem adja meg a 9 számjegyből álló TAJ számát!")
+	private String socialSecurityNumber;
+	
+	private Integer idAppointment;
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -23,11 +41,11 @@ public class PatientDTO {
 		this.firstName = firstName;
 	}
 
-	public Integer getSocialSecurityNumber() {
+	public String getSocialSecurityNumber() {
 		return socialSecurityNumber;
 	}
 
-	public void setSocialSecurityNumber(Integer socialSecurityNumber) {
+	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
 	}
 
@@ -39,7 +57,11 @@ public class PatientDTO {
 		this.idAppointment = idAppointment;
 	}
 
-	public PatientDTO(String lastName, String firstName, Integer socialSecurityNumber, Integer idAppointment) {
+	public PatientDTO(
+			@NotEmpty(message = "Kérem adja meg a vezetéknevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String lastName,
+			@NotEmpty(message = "Kérem adja meg a keresztnevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String firstName,
+			@Pattern(regexp = "[\\d]{9}", message = "Kérem adja meg a 9 számjegyből álló TAJ számát!") String socialSecurityNumber,
+			Integer idAppointment) {
 		super();
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -48,5 +70,10 @@ public class PatientDTO {
 	}
 
 	public PatientDTO() {
+		super();
 	}
+
+	
+	
+	
 }

@@ -3,13 +3,14 @@ package com.gp.Generalpractitioner.controller.dto;
 import java.sql.Date;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class NewsDTO {
 	
 	private Date date;
 	
 	@NotEmpty(message = "Kérem adja meg a címet!")
+	@Size(max = 45, message ="Legfeljebb 45 karakterből állhat.")
 	private String title;
 	
 	@NotEmpty(message = "Kérem adja meg a leírást!")

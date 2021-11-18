@@ -1,9 +1,8 @@
 package com.gp.Generalpractitioner.service;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,9 +16,9 @@ import com.gp.Generalpractitioner.repository.AppointmentRepository;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
-	
+
 	private AppointmentRepository appointmentRepository;
-	
+
 	@Autowired
 	public void setAppointmentRepository(AppointmentRepository appointmentRepository) {
 		this.appointmentRepository = appointmentRepository;
@@ -29,42 +28,43 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public Iterable<Appointment> listAppointments() {
 		return appointmentRepository.findAll();
 	}
-	
 
 	@Override
-	public List<String> findByDate(Date date) {
+	public List<String> findFreeAppointmentsByDate(Date date) {
 		List<String> reservedAppointments = appointmentRepository.findByDate(date).stream()
-				.map(appointment -> appointment.getTime())
-				.collect(Collectors.toList());
-		
+				.map(appointment -> appointment.getTime()).collect(Collectors.toList());
+
 		List<String> availableAppointments = new AppointmentUtil().getAllString();
 		availableAppointments.removeAll(reservedAppointments);
-		
-		return availableAppointments;
 
+		return availableAppointments;
 	}
-	
+
 	@Override
 	public Appointment saveAppointment(AppointmentDTO appointmentDTO) {
 		return appointmentRepository.save(new AppointmentUtil().convertAppointmentDTOtoAppointment(appointmentDTO));
 	}
-	
+
 	@Override
-	public List<Appointment> findByDateAdmin(Date date) {
+	public List<Appointment> findReservedAppointmentsByDate(Date date) {
 		List<Appointment> reservedAppointments = new ArrayList<Appointment>();
 		reservedAppointments.addAll(appointmentRepository.findByDate(date));
 		return reservedAppointments;
 	}
-	
+
 	@Override
-	public Optional<Appointment> findById(int id) {
-		return appointmentRepository.findById(id);
+	public Appointment findById(int id) {
+		return appointmentRepository.findById(id).get();
 	}
-	
+	/*
 	@Override
-	public String deleteAppointment(int id) {
+	public void updateAppointment(String id, Appointment appointment) {
+		appointment.set
+		
+	}
+	*/
+	@Override
+	public void deleteAppointment(int id) {
 		appointmentRepository.deleteById(id);
-		return id + " appointment deleted";
 	}
-	
 }

@@ -13,7 +13,7 @@ public class Patient {
 	
 	@Id
     @Column(name = "patient_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idPatient; 
 	
 	@Column(name="last_name")
@@ -23,7 +23,7 @@ public class Patient {
 	private String firstName;
 	
 	@Column(name="social_security_number")
-	private Integer socialSecurityNumber;
+	private String socialSecurityNumber;
 	
 	@Column(name="fk_appointment_id")
 	private Integer idAppointment;
@@ -52,11 +52,11 @@ public class Patient {
 		this.firstName = firstName;
 	}
 
-	public Integer getSocialSecurityNumber() {
+	public String getSocialSecurityNumber() {
 		return socialSecurityNumber;
 	}
 
-	public void setSocialSecurityNumber(Integer socialSecurityNumber) {
+	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
 	}
 
@@ -67,4 +67,11 @@ public class Patient {
 	public void setIdAppointment(Integer idAppointment) {
 		this.idAppointment = idAppointment;
 	}
+
+	@Override
+	public String toString() {
+		return "Patient [idPatient=" + idPatient + ", lastName=" + lastName + ", firstName=" + firstName
+				+ ", socialSecurityNumber=" + socialSecurityNumber + ", idAppointment=" + idAppointment + "]";
+	}
+	
 }

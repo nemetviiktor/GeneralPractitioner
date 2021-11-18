@@ -1,9 +1,5 @@
 package com.gp.Generalpractitioner.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +40,8 @@ public class AppointmentUtil {
 	}
 
 	public Integer generateIndex(AppointmentDTO appointmentDTO) {
-		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String dateString = inputFormat.format(appointmentDTO.getDate());
-		String replacedDate = dateString.replace("-", "");
-		String index = (new StringBuilder().append(Integer.parseInt(replacedDate)).append(appointmentDTO.getCounter()))
+		String dateString = new DateUtil().removeHyphenFromDate(appointmentDTO.getDate());
+		String index = (new StringBuilder().append(Integer.parseInt(dateString)).append(appointmentDTO.getCounter()))
 				.toString();
 		return Integer.parseInt(index);
 	}
@@ -60,23 +54,15 @@ public class AppointmentUtil {
 		appointment.setCounter(appointmentDTO.getCounter());
 		return appointment;
 	}
-
-	public static LocalDate addDaysSkippingWeekends(LocalDate date, int days) {
-		LocalDate result = date;
-		int addedDays = 0;
-		while (addedDays < days) {
-			result = result.plusDays(1);
-			if (!(result.getDayOfWeek() == DayOfWeek.SATURDAY || result.getDayOfWeek() == DayOfWeek.SUNDAY)) {
-				++addedDays;
-			}
-		}
-		return result;
+	
+	
+	public AppointmentDTO convertAppointmentToAppointmentDTO (Appointment appointment) {
+		AppointmentDTO appointmentDTO = new AppointmentDTO();
+		appointmentDTO.setId(appointment.getIdAppointment());
+		appointmentDTO.setDate(appointment.getDate());
+		appointmentDTO.setTime(appointment.getTime());
+		appointmentDTO.setCounter(appointment.getCounter());
+		return appointmentDTO;
 	}
-	/*
-	 * public ArrayList<String> AppointmentAndPatient2Object(Date date) {
-	 * ArrayList<String> Appointment = new ArrayList<String>();
-	 * Appointment.addAll(Appointment) return null;
-	 * 
-	 * }
-	 */
+	
 }

@@ -13,4 +13,13 @@ public class PatientUtil {
 		patient.setIdAppointment(patientDTO.getIdAppointment());
 		return patient;
 	}
+	
+	public PatientDTO convertPatientToPatientDTO(Patient patient) {
+		PatientDTO patientDTO = new PatientDTO();
+		patientDTO.setLastName(patient.getLastName());
+		patientDTO.setFirstName(patient.getFirstName());
+		patientDTO.setSocialSecurityNumber(patient.getSocialSecurityNumber());
+		patientDTO.setIdAppointment(patient.getIdAppointment());
+		return patientDTO;
+	}
 }

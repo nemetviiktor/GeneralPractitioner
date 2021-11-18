@@ -12,13 +12,15 @@ public interface AppointmentService {
 	
 	public Iterable<Appointment> listAppointments();
 	
-	public List<String> findByDate(Date date);
+	public List<String> findFreeAppointmentsByDate(Date date);
 	
 	public Appointment saveAppointment(AppointmentDTO appointmentDTO);
 	
-	public List<Appointment> findByDateAdmin(Date date);
+	public List<Appointment> findReservedAppointmentsByDate(Date date);
 	
-	public Optional<Appointment> findById(int id);
+	public Appointment findById(int id);
 	
-	public String deleteAppointment(int id);	
+	//public void updateAppointment(String id, Appointment appointment);
+	
+	public void deleteAppointment(int id);	
 }

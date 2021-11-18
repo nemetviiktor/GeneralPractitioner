@@ -50,7 +50,7 @@
       <!-- Page Content -->
       <section class="py-5">
          <div class="container">
-            <h2 class="font-weight-light" style="text-align:center"><a th:text="${displayDate}"></a>. napon szabad időpontok</h2>
+            <h2 class="font-weight-light" style="text-align:center"><a th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></a> napon szabad időpontok</h2>
             <table class="table col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
                <tr th:each="appointment: ${appointments}">
                   <td><a th:text="${appointment}" th:href="@{/reserve(date=${date},time=${appointment})}" button type="button" class="btn btn-primary btn-lg btn-block"></button></a></td>

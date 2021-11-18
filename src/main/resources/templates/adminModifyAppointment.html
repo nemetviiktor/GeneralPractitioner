@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Időpont módosítás</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+         .masthead {
+         height: 2vh;
+         }
+         #logoutButton {
+         background-color: #ccc;
+         -moz-border-radius: 5px;
+         -webkit-border-radius: 5px;
+         border-radius:6px;
+         color: #fff;
+         font-family: 'Oswald';
+         font-size: 20px;
+         text-decoration: none;
+         cursor: poiner;
+         border:none;
+         }
+         #logoutButton:hover {
+         border: none;
+         background:red;
+         box-shadow: 0px 0px 1px #777;
+         }
+         .center {
+         margin: auto;
+         text-align: center;
+         margin-left: auto;
+         margin-right: auto;
+         width: 60%;
+         padding: 10px;
+         }
+         .td {
+         text-align: center;
+         }
+      </style>
+</head>
+<body>
+	<!-- Navigation -->
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Szendrőlád</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Kezdőlap
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/admin">Bejegyzések</a>
+					</li>
+					<li class="nav-item"><a class="navbar-brand" href="adminReservedAppointments">Időpont
+							menedzselés <span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Receptírás</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Dokumentumok</a>
+					</li>
+					<li class="nav-item"><a class="nav-link">
+							<form th:action="@{/logout}" method="post">
+								<input type="submit" id="logoutButton" value="Kijelentkezés" />
+							</form>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Full Page Image Header with Vertically Centered Content -->
+	<header class="masthead"> </header>
+	<!-- Page Content -->
+	<section class="py-5">
+		<div class="container">
+			<div class="col-xl-7 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
+				<h2 class="font-weight-light" style="text-align: center">
+					<a th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></a> <a
+						th:text="${time}"></a> időpont módosítása
+				</h2>
+				<form
+					th:action="@{/admin/update(idAppointment=${patientDTO.idAppointment},id=${id},date=${date},time=${time})}"
+					method="post">
+					<div class="form-group row">
+						<label for="lastName" class="col-sm-2 col-form-label">Vezetéknév</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="lastName"
+								th:value="${patientDTO.lastName}"
+								th:classappend="${#fields.hasErrors('patientDTO.lastName')} ? is-invalid">
+							<div class="text-danger"
+								th:if="${#fields.hasErrors('patientDTO.lastName')}"
+								th:errors="*{patientDTO.lastName}"></div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="firstName" class="col-sm-2 col-form-label">Keresztnév</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="firstName"
+								th:value="${patientDTO.firstName}"
+								th:classappend="${#fields.hasErrors('patientDTO.firstName')} ? is-invalid">
+							<div class="text-danger"
+								th:if="${#fields.hasErrors('patientDTO.firstName')}"
+								th:errors="*{patientDTO.firstName}"></div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="socialSecurityNumber" class="col-sm-2 col-form-label">TAJ
+							szám</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control"
+								name="socialSecurityNumber"
+								th:value="${patientDTO.socialSecurityNumber}"
+								th:classappend="${#fields.hasErrors('patientDTO.socialSecurityNumber')} ? is-invalid">
+							<div class="text-danger"
+								th:if="${#fields.hasErrors('patientDTO.socialSecurityNumber')}"
+								th:errors="*{patientDTO.socialSecurityNumber}"></div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Módosítás</button>
+				</form>
+			</div>
+		</div>
+	</section>
+	<div class="jumbotron text-center" style="margin-bottom: 0">
+		<p>Footer</p>
+	</div>
+</body>
+</html>
