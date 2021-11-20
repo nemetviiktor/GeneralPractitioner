@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,8 +29,12 @@ public class News {
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="fk_user_id")
-	private Integer idUser;
+	//@Column(name="fk_user_id")
+	//private Integer idUser;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User idUser;
 	
 	public Integer getIdnews() {
 		return idNews;
@@ -66,11 +72,24 @@ public class News {
 		this.description = description;
 	}
 
-	public Integer getIdUser() {
+	public User getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(Integer idUser) {
+	public void setIdUser(User idUser) {
 		this.idUser = idUser;
 	}
+
+	public News(Integer idNews, Date date, String title, String description, User idUser) {
+		super();
+		this.idNews = idNews;
+		this.date = date;
+		this.title = title;
+		this.description = description;
+		this.idUser = idUser;
+	}
+
+	public News() {
+	}
+
 }
