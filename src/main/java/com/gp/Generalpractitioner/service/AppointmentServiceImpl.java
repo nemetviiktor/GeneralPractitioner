@@ -56,13 +56,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public Appointment findById(int id) {
 		return appointmentRepository.findById(id).get();
 	}
-	/*
-	@Override
-	public void updateAppointment(String id, Appointment appointment) {
-		appointment.set
-		
-	}
-	*/
+
 	@Override
 	public void deleteAppointment(int id) {
 		appointmentRepository.deleteById(id);

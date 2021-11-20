@@ -20,7 +20,5 @@ public interface AppointmentService {
 	
 	public Appointment findById(int id);
 	
-	//public void updateAppointment(String id, Appointment appointment);
-	
 	public void deleteAppointment(int id);	
 }

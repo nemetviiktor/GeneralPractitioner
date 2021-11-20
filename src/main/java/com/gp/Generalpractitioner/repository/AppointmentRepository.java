@@ -12,5 +12,4 @@ import com.gp.Generalpractitioner.model.Appointment;
 public interface AppointmentRepository extends CrudRepository<Appointment, Integer> {
 	
 	public List<Appointment> findByDate(Date date);
-	
 }

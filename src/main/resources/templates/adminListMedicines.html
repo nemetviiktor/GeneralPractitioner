@@ -2,15 +2,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Új bejegyzés létrehozása</title>
+<title>Gyógyszerkereső</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
@@ -61,13 +58,13 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link" href="/">Kezdőlap</a>
 					</li>
-					<li class="nav-item"><a class="navbar-brand" href="#">Bejegyzések
-							<span class="sr-only">(current)</span>
+					<li class="nav-item"><a class="nav-link" href="/admin">Bejegyzések
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="admin/adminReservedAppointments">Időpont menedzselés</a></li>
-					<li class="nav-item"><a class="nav-link" href="admin/findMedicine">Gyógyszerkereső</a>
-					</li>
+						href="/admin/adminReservedAppointments">Időpont menedzselés </a></li>
+					<li class="nav-item"><a class="navbar-brand" href="findMedicine">Gyógyszerkereső
+							<span class="sr-only">(current)</span>
+					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Dokumentumok</a>
 					</li>
 					<li class="nav-item"><a class="nav-link">
@@ -81,40 +78,30 @@
 	</nav>
 	<!-- Full Page Image Header with Vertically Centered Content -->
 	<header class="masthead"> </header>
+
 	<!-- Page Content -->
-	<!--  
-         <section class="py-5">
-         
-         <!--h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3-->
 	<section class="py-5">
 		<div class="container">
-		<div class="col-xl-10 mx-auto text-center">
-			<div class="text-center p-3"><h2 class="font-weight-light">Új bejegyzés létrehozása</h2></div>
-			<form th:action="@{/newPost}" method="post" th:object="${newsDTO}">
-				<div class="form-group row">
-					<label for="title" class="col-sm-2 col-form-label">Cím</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="title"
-							th:field="*{title}"
-							th:classappend="${#fields.hasErrors('title')} ? is-invalid">
-						<div class="text-danger" th:if="${#fields.hasErrors('title')}"
-							th:errors="*{title}"></div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="description" class="col-sm-2 col-form-label">Leírás</label>
-					<div class="col-sm-10">
-						<textarea rows="3" class="form-control" id="description"
-							th:field="*{description}"
-							th:classappend="${#fields.hasErrors('description')} ? is-invalid"></textarea>
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('description')}"
-							th:errors="*{description}"></div>
-					</div>
-				</div>
-				<button type="submit" class="btn btn-primary btn-lg btn-block">Küldés</button>
-			</form>
-		</div>
+		<h2 class="font-weight-light" style="text-align:center"><b th:text="${activeIngredient}"></b> hatóanyagra talált gyógyszerek listája</h2>
+         <div class="table-responsive-sm">
+            <table class="table text-center">
+               <thead class="thead-dark">
+                  <tr>
+                     <th scope="col">Név</th>
+                     <th scope="col">Hatóanyag</th>
+                     <th scope="col">Vényköteles</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr th:each="medicine: ${medicines}">
+                     <td><a th:text="${medicine.name}"></a></td>
+                     <td><a th:text="${medicine.activeIngredient}"></a></td>
+                     <td><i class="bi bi-x-circle" th:unless="${medicine.prescription}"></i><i class="bi bi-check-circle" th:if="${medicine.prescription}"></i></td>
+                     <!-- >td><a th:text="${medicine.prescription}"></a></td-->
+                  </tr>
+               </tbody>
+            </table>
+         </div>
 		</div>
 	</section>
 	<div class="jumbotron text-center" style="margin-bottom: 0">

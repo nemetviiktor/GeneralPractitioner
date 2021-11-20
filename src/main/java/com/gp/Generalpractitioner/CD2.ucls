@@ -4,7 +4,7 @@
   <class id="1" language="java" name="com.gp.Generalpractitioner.model.Appointment" project="GeneralPractitioner" 
     file="/GeneralPractitioner/src/main/java/com/gp/Generalpractitioner/model/Appointment.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="503" y="210"/>    
+    <position height="-1" width="-1" x="703" y="293"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -14,7 +14,7 @@
   <class id="2" language="java" name="com.gp.Generalpractitioner.model.Patient" project="GeneralPractitioner" 
     file="/GeneralPractitioner/src/main/java/com/gp/Generalpractitioner/model/Patient.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="824" y="209"/>    
+    <position height="-1" width="-1" x="350" y="292"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -23,7 +23,7 @@
   </class>  
   <association id="3">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="4" name="appointment"/>      
+      <attribute id="4" name="idAppointment"/>      
       <multiplicity id="5" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    

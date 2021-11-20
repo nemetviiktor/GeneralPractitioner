@@ -37,21 +37,21 @@ public class PatientServiceImpl implements PatientService {
 	public Patient savePatient(PatientDTO patientDTO) {
 		return patientRepository.save(new PatientUtil().convertPatientDTOtoPatient(patientDTO));
 	}
-	
+	/*
 	@Override
 	public Patient findByIdAppointment(int id) {
 		return patientRepository.findByIdAppointment(id);
 	}
-
+*/
 	@Override
 	public List<Patient> findPatientsByDate(List<Appointment> appointments) {
 		List<Patient> patients = new ArrayList<Patient>();
 		for (int i = 0; i < appointments.size(); i++) {
-			patients.add(patientRepository.findByIdAppointment(appointments.get(i).getIdAppointment()));
+			patients.add(patientRepository.findByIdAppointment(appointments.get(i)));
 		}
 		return patients;
 	}
-
+	
 	@Override
 	public Patient updatePatient(PatientDTO patientDTO, int id) {
 		Patient patient = new PatientUtil().convertPatientDTOtoPatient(patientDTO);
@@ -59,7 +59,16 @@ public class PatientServiceImpl implements PatientService {
 		return patientRepository.save(patient);
 		
 	}
+	
+	
 
+
+	
+
+	@Override
+	public Patient findByIdAppointment(Appointment idAppointment) {
+		return patientRepository.findByIdAppointment(idAppointment);
+	}
 
 	
 

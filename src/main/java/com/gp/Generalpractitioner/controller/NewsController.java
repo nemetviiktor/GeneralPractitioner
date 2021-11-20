@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gp.Generalpractitioner.controller.dto.NewsDTO;
-import com.gp.Generalpractitioner.security.MyUserDetails;
+import com.gp.Generalpractitioner.security.UserDetailsImpl;
 import com.gp.Generalpractitioner.service.DateUtil;
 import com.gp.Generalpractitioner.service.NewsService;
 
@@ -36,7 +36,7 @@ public class NewsController {
 
 	@PostMapping("/newPost")
 	public ModelAndView newPost(@Valid @ModelAttribute("newsDTO") NewsDTO newsDTO, BindingResult bindingResult,
-			@AuthenticationPrincipal MyUserDetails user) {
+			@AuthenticationPrincipal UserDetailsImpl user) {
 		
 		if (!bindingResult.hasErrors()) {
 			newsDTO.setIdUser(user.getId());

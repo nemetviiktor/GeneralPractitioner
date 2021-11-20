@@ -118,7 +118,7 @@ public class AppointmentController {
 		// mav.addObject("patient", patientService.findByIdAppointment(202110290));
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "admin/modify")
 	public ModelAndView showSelectedAppointment(@RequestParam("id") int id) {
 		ModelAndView mav = new ModelAndView();
@@ -126,14 +126,16 @@ public class AppointmentController {
 		mav.addObject("date", appointmentDTO.getDate());
 		mav.addObject("time", appointmentDTO.getTime());
 		mav.addObject("appointmentDTO", appointmentDTO);
+		Appointment appointment = new Appointment();
+		appointment.setIdAppointment(id);
 		mav.addObject("patientDTO",
-				new PatientUtil().convertPatientToPatientDTO(patientService.findByIdAppointment(id)));
-		mav.addObject("id", patientService.findByIdAppointment(id).getIdPatient());
+				new PatientUtil().convertPatientToPatientDTO(patientService.findByIdAppointment(appointment)));
+		mav.addObject("id", patientService.findByIdAppointment(appointment).getIdPatient());
 
 		mav.setViewName("adminModifyAppointment");
 		return mav;
 	}
-
+	
 	@PostMapping(value = "admin/update")
 	public ModelAndView updatePatient(@Valid @ModelAttribute("patientDTO") PatientDTO patientDTO,
 			BindingResult bindingResult, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO,

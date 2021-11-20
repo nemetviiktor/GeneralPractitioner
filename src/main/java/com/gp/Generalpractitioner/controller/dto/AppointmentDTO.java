@@ -4,8 +4,6 @@ import java.sql.Date;
 
 public class AppointmentDTO {
 	
-	//@Size(min = 5)
-	
 	private Integer idAppointment;
 	private Date date;
 	private String time;

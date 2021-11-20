@@ -17,7 +17,7 @@ public interface PatientService {
 	
 	public List<Patient> findPatientsByDate(List<Appointment> appointments);
 	
-	public Patient findByIdAppointment(int id);
+	public Patient findByIdAppointment(Appointment idAppointment);
 	
 	public Patient updatePatient(PatientDTO patientDTO, int id);
 }
