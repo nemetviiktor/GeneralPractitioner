@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.gp.Generalpractitioner.controller.dto.AppointmentDTO;
 import com.gp.Generalpractitioner.model.Appointment;
+import com.gp.Generalpractitioner.model.Patient;
 
 
 public interface AppointmentService {
@@ -16,9 +17,13 @@ public interface AppointmentService {
 	
 	public Appointment saveAppointment(AppointmentDTO appointmentDTO);
 	
+	public Appointment updateAppointment(AppointmentDTO appointmentDTO);
+	
+	public Appointment findBySocialSecurityNumber(Patient socialSecurityNumber);
+	
 	public List<Appointment> findReservedAppointmentsByDate(Date date);
 	
 	public Appointment findById(int id);
 	
-	public void deleteAppointment(int id);	
+	public void deleteAppointment(Patient socialSecurityNumber);	
 }

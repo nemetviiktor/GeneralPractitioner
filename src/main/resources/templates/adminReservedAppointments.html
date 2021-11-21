@@ -104,7 +104,7 @@
          </div>
       </section>
       <div class="container">
-         <h2 class="font-weight-light" style="text-align:center"><a th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></a> napra lefoglalt időpontok</h2>
+         <h2 class="font-weight-light" style="text-align:center"><b th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></b> napra lefoglalt időpontok</h2>
          <div class="table-responsive-sm">
             <table class="table text-center">
                <thead class="thead-dark">
@@ -129,11 +129,13 @@
                      <td><a th:text="${patients[iterStat.index].phoneNumber}"></a></td>
                      <td><a th:href="@{/admin/modify(id=${appointment.idAppointment})}" class="btn btn-primary">Módosítás</a></td>
                      <td><a th:href="@{/delete(id=${appointment.idAppointment})}" class="btn btn-danger">Időpont törlése</a></td>
-                     <!-- th:href="@{/delete(id=${user.id})}" -->
                   </tr>
                </tbody>
             </table>
          </div>
+         <table>
+		
+	</table>
       </div>
       <div class="jumbotron text-center" style="margin-bottom:0">
          <p>Footer</p>

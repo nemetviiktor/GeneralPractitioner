@@ -17,8 +17,7 @@ public class Patient {
 
 	@Id
 	@Column(name = "patient_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idPatient;
+	private String socialSecurityNumber;
 
 	@Column(name = "last_name")
 	private String lastName;
@@ -26,8 +25,6 @@ public class Patient {
 	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name = "social_security_number")
-	private String socialSecurityNumber;
 
 	@Column(name = "date_of_birth")
 	private Date dateOfBirth;
@@ -35,19 +32,12 @@ public class Patient {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 
-	// @Column(name="fk_appointment_id")
-	// private Integer idAppointment;
-
-	@OneToOne
-	@JoinColumn(name = "appointment_id")
-	private Appointment idAppointment;
-
-	public Integer getIdPatient() {
-		return idPatient;
+	public String getSocialSecurityNumber() {
+		return socialSecurityNumber;
 	}
 
-	public void setIdPatient(Integer idPatient) {
-		this.idPatient = idPatient;
+	public void setSocialSecurityNumber(String socialSecurityNumber) {
+		this.socialSecurityNumber = socialSecurityNumber;
 	}
 
 	public String getLastName() {
@@ -66,22 +56,6 @@ public class Patient {
 		this.firstName = firstName;
 	}
 
-	public String getSocialSecurityNumber() {
-		return socialSecurityNumber;
-	}
-
-	public void setSocialSecurityNumber(String socialSecurityNumber) {
-		this.socialSecurityNumber = socialSecurityNumber;
-	}
-
-	public Appointment getIdAppointment() {
-		return idAppointment;
-	}
-
-	public void setIdAppointment(Appointment idAppointment) {
-		this.idAppointment = idAppointment;
-	}
-
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -98,17 +72,19 @@ public class Patient {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Patient(Integer idPatient, String lastName, String firstName, String socialSecurityNumber, Date dateOfBirth,
-			String phoneNumber, Appointment idAppointment) {
+	public Patient(String socialSecurityNumber, String lastName, String firstName, Date dateOfBirth,
+			String phoneNumber) {
 		super();
-		this.idPatient = idPatient;
+		this.socialSecurityNumber = socialSecurityNumber;
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.socialSecurityNumber = socialSecurityNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.phoneNumber = phoneNumber;
-		this.idAppointment = idAppointment;
 	}
+
+
+
+
 
 	public Patient() {
 		super();

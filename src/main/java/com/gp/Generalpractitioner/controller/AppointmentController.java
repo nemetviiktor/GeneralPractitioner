@@ -3,6 +3,7 @@ package com.gp.Generalpractitioner.controller;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -79,22 +80,25 @@ public class AppointmentController {
 		mav.setViewName("bookingdetails");
 		mav.addObject("date", appointmentDTO.getDate());
 		mav.addObject("time", appointmentDTO.getTime());
-		mav.addObject("dateOfBirth", appointmentDTO.getDate());
+		//mav.addObject("dateOfBirth", appointmentDTO.getDate());
 		mav.addObject("maxDate", LocalDate.now());
 		mav.addObject("patientDTO", new PatientDTO());
 		mav.addObject(appointmentDTO);
 		return mav;
 	}
 
+	//@Transactional
 	@PostMapping("/reserveAppointment")
 	public ModelAndView reserveAppointment(@Valid @ModelAttribute("patientDTO") PatientDTO patientDTO,
 			BindingResult bindingResult, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
 
 		if (!bindingResult.hasErrors()) {
-			appointmentDTO.setCounter(new AppointmentUtil().string2index(appointmentDTO.getTime()));
-			patientDTO.setIdAppointment(new AppointmentUtil().generateIndex(appointmentDTO));
-			appointmentService.saveAppointment(appointmentDTO);
+			appointmentDTO.setIndex(new AppointmentUtil().string2index(appointmentDTO.getTime()));
+			appointmentDTO.setIdAppointment(new AppointmentUtil().generateIndex(appointmentDTO));
+			Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
 			patientService.savePatient(patientDTO);
+			appointmentDTO.setSocialSecurityNumber(patientService.findBySocialSecurityNumber(patientDTO.getSocialSecurityNumber()).getSocialSecurityNumber());
+			appointmentService.saveAppointment(appointmentDTO);
 			return new ModelAndView("redirect:/");
 		}
 
@@ -114,14 +118,13 @@ public class AppointmentController {
 		mav.addObject("appointmentDTO", new AppointmentDTO());
 		mav.addObject("patientDTO", new PatientDTO());
 		mav.addObject("date", date);
-		mav.setViewName("adminReservedAppointments");
 		mav.addObject("appointments", appointmentService.findReservedAppointmentsByDate(date));
 		mav.addObject("patients",
 				patientService.findPatientsByDate(appointmentService.findReservedAppointmentsByDate(date)));
-		// mav.addObject("patient", patientService.findByIdAppointment(202110290));
+		mav.setViewName("adminReservedAppointments");
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "admin/modify")
 	public ModelAndView showSelectedAppointment(@RequestParam("id") int id) {
 		ModelAndView mav = new ModelAndView();
@@ -131,29 +134,26 @@ public class AppointmentController {
 		mav.addObject("time", appointmentDTO.getTime());
 		mav.addObject("maxDate", LocalDate.now());
 		mav.addObject("appointmentDTO", appointmentDTO);
-		Appointment appointment = new Appointment();
-		appointment.setIdAppointment(id);
-		mav.addObject("patientDTO",
-				new PatientUtil().convertPatientToPatientDTO(patientService.findByIdAppointment(appointment)));
-		mav.addObject("id", patientService.findByIdAppointment(appointment).getIdPatient());
+		//Appointment appointment = new Appointment();
+		//appointment.setIdAppointment(id);
+		Patient patient = appointmentService.findById(id).getSocialSecurityNumber();
+		mav.addObject("patientDTO", new PatientUtil().convertPatientToPatientDTO(patient));
 
 		mav.setViewName("adminModifyAppointment");
 		return mav;
 	}
-
+	
 	@PostMapping(value = "admin/update")
 	public ModelAndView updatePatient(@Valid @ModelAttribute("patientDTO") PatientDTO patientDTO,
-			BindingResult bindingResult, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO,
-			@RequestParam("id") int id) {
-		Patient patient = patientService.findById(id);
+			BindingResult bindingResult, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
 		if (!bindingResult.hasErrors()) {
-			patientService.updatePatient(patientDTO, id);
+			patientService.updatePatient(patientDTO);
+			appointmentDTO.setSocialSecurityNumber(patientDTO.getSocialSecurityNumber());
 			return new ModelAndView("redirect:adminReservedAppointments");
 		}
 		
 		return new ModelAndView("adminModifyAppointment").addObject(patientDTO).addObject(appointmentDTO)
-				.addObject("date", appointmentDTO.getDate()).addObject("time", appointmentDTO.getTime())
-				.addObject("id", id);
+				.addObject("date", appointmentDTO.getDate()).addObject("time", appointmentDTO.getTime());
 	}
 
 	@Transactional
@@ -163,8 +163,8 @@ public class AppointmentController {
 		if (!appointment.getIdAppointment().equals(id)) {
 			return new ModelAndView("error");
 		}
-		patientService.deletePatient(appointmentService.findById(id));
-		appointmentService.deleteAppointment(id);
+		appointmentService.deleteAppointment(appointment.getSocialSecurityNumber());
+		patientService.deletePatient(appointment.getSocialSecurityNumber().getSocialSecurityNumber());
 		return new ModelAndView("redirect:admin/adminReservedAppointments");
 	}
 

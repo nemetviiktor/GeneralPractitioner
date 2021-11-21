@@ -93,10 +93,10 @@
 			<div class="col-xl-7 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
 				<h2 class="font-weight-light" style="text-align: center">
 					<b th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></b> <b
-						th:text="${time}"></b> időpont módosítása
+						th:text="${time}"></b> időpont adatainak módosítása
 				</h2>
 				<form
-					th:action="@{/admin/update(idAppointment=${patientDTO.idAppointment},id=${id},date=${date},time=${time})}"
+					th:action="@{/admin/update(date=${date},time=${time})}"
 					method="post">
 					<div class="form-group row">
 						<label for="lastName" class="col-sm-2 col-form-label">Vezetéknév</label>

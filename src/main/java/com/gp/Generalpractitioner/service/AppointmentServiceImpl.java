@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.gp.Generalpractitioner.controller.dto.AppointmentDTO;
 import com.gp.Generalpractitioner.model.Appointment;
+import com.gp.Generalpractitioner.model.Patient;
 import com.gp.Generalpractitioner.repository.AppointmentRepository;
 
 @Service
@@ -58,7 +59,17 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public void deleteAppointment(int id) {
-		appointmentRepository.deleteById(id);
+	public void deleteAppointment(Patient socialSecurityNumber) {
+		appointmentRepository.deleteBySocialSecurityNumber(socialSecurityNumber);
+	}
+
+	@Override
+	public Appointment findBySocialSecurityNumber(Patient socialSecurityNumber) {
+		return appointmentRepository.findBySocialSecurityNumber(socialSecurityNumber);
+	}
+
+	@Override
+	public Appointment updateAppointment(AppointmentDTO appointmentDTO) {
+		return appointmentRepository.save(new AppointmentUtil().convertAppointmentDTOtoAppointment(appointmentDTO));
 	}
 }

@@ -11,15 +11,14 @@ public interface PatientService {
 	
 	public Iterable<Patient> listPatients();
 	
-	public Patient findById(int id);
+	
+	public Patient findBySocialSecurityNumber(String socialSecurityNumber);
 	
 	public Patient savePatient(PatientDTO patientDTO);
 	
 	public List<Patient> findPatientsByDate(List<Appointment> appointments);
+		
+	public Patient updatePatient(PatientDTO patientDTO);
 	
-	public Patient findByIdAppointment(Appointment idAppointment);
-	
-	public Patient updatePatient(PatientDTO patientDTO, int id);
-	
-	public void deletePatient(Appointment idAppointment);
+	public void deletePatient(String id);
 }

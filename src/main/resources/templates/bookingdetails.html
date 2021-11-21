@@ -97,9 +97,9 @@
 						<label for="dateOfBirth" class="col-sm-2 col-form-label">Születési
 							idő</label>
 						<div class="col-sm-10">
-							<input type="date" id="dateOfBirth" name="dateOfBirth"
-								th:value="${dateOfBirth}" min="1990-01-01" th:max=${maxDate}
-								class="form-control"
+							<input type="date" class="form-control" name="dateOfBirth"
+								th:value="${patientDTO.dateOfBirth}" min="1990-01-01"
+								th:max="${maxDate}"
 								th:classappend="${#fields.hasErrors('patientDTO.dateOfBirth')} ? is-invalid">
 							<small class="text-muted">Például: 1998.09.18.</small>
 							<div class="text-danger"

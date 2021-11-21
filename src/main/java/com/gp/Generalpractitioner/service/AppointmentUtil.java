@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gp.Generalpractitioner.controller.dto.AppointmentDTO;
 import com.gp.Generalpractitioner.model.Appointment;
+import com.gp.Generalpractitioner.model.Patient;
 
 public class AppointmentUtil {
 
@@ -41,27 +42,31 @@ public class AppointmentUtil {
 
 	public Integer generateIndex(AppointmentDTO appointmentDTO) {
 		String dateString = new DateUtil().removeHyphenFromDate(appointmentDTO.getDate());
-		String index = (new StringBuilder().append(Integer.parseInt(dateString)).append(appointmentDTO.getCounter()))
+		String index = (new StringBuilder().append(Integer.parseInt(dateString)).append(appointmentDTO.getIndex()))
 				.toString();
 		return Integer.parseInt(index);
 	}
 
 	public Appointment convertAppointmentDTOtoAppointment(AppointmentDTO appointmentDTO) {
 		Appointment appointment = new Appointment();
+		Patient patient = new Patient();
+		patient.setSocialSecurityNumber(appointmentDTO.getSocialSecurityNumber());
+		appointment.setSocialSecurityNumber(patient);
 		appointment.setIdAppointment(generateIndex(appointmentDTO));
 		appointment.setDate(appointmentDTO.getDate());
+		appointment.setIndex(appointmentDTO.getIndex());
 		appointment.setTime(appointmentDTO.getTime());
-		appointment.setCounter(appointmentDTO.getCounter());
 		return appointment;
 	}
 	
 	
 	public AppointmentDTO convertAppointmentToAppointmentDTO (Appointment appointment) {
 		AppointmentDTO appointmentDTO = new AppointmentDTO();
-		appointmentDTO.setId(appointment.getIdAppointment());
+		appointmentDTO.setIdAppointment(appointment.getIdAppointment());
 		appointmentDTO.setDate(appointment.getDate());
 		appointmentDTO.setTime(appointment.getTime());
-		appointmentDTO.setCounter(appointment.getCounter());
+		appointmentDTO.setIndex(appointment.getIndex());
+		appointmentDTO.setSocialSecurityNumber(appointment.getSocialSecurityNumber().getSocialSecurityNumber());
 		return appointmentDTO;
 	}
 	

@@ -11,10 +11,6 @@ public class PatientUtil {
 		patient.setLastName(patientDTO.getLastName());
 		patient.setFirstName(patientDTO.getFirstName());
 		patient.setSocialSecurityNumber(patientDTO.getSocialSecurityNumber());
-		//patient.setIdAppointment(patientDTO.getIdAppointment());
-		Appointment appointment = new Appointment();
-		appointment.setIdAppointment(patientDTO.getIdAppointment());
-		patient.setIdAppointment(appointment);
 		patient.setDateOfBirth(patientDTO.getDateOfBirth());
 		patient.setPhoneNumber(patientDTO.getPhoneNumber());
 		return patient;
@@ -25,7 +21,6 @@ public class PatientUtil {
 		patientDTO.setLastName(patient.getLastName());
 		patientDTO.setFirstName(patient.getFirstName());
 		patientDTO.setSocialSecurityNumber(patient.getSocialSecurityNumber());
-		patientDTO.setIdAppointment(patient.getIdAppointment().getIdAppointment());
 		patientDTO.setDateOfBirth(patient.getDateOfBirth());
 		patientDTO.setPhoneNumber(patient.getPhoneNumber());
 		return patientDTO;

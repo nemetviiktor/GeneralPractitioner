@@ -8,10 +8,12 @@ import com.gp.Generalpractitioner.model.Appointment;
 import com.gp.Generalpractitioner.model.Patient;
 
 @Repository
-public interface PatientRepository extends CrudRepository<Patient, Integer> {
+public interface PatientRepository extends CrudRepository<Patient, String> {
 	
-	public Patient findByIdAppointment(Appointment idAppointment);
+	public Patient findBySocialSecurityNumber(String socialSecurityNumber);
 	
-	public void deleteByIdAppointment(Appointment idAppointment);
+	//public Patient findByIdAppointment(Appointment idAppointment);
+	
+	//public void deleteByIdAppointment(Appointment idAppointment);
 
 }

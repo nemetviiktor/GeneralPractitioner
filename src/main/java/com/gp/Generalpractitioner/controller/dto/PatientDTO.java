@@ -14,6 +14,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class PatientDTO {
 
+	@Pattern(regexp = "[\\d]{9}", message = "Kérem, adja meg a 9 számjegyből álló TAJ számát!")
+	private String socialSecurityNumber;
+	
 	@NotEmpty(message = "Kérem, adja meg a vezetéknevét!")
 	@Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.")
 	private String lastName;
@@ -22,10 +25,6 @@ public class PatientDTO {
 	@Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.")
 	private String firstName;
 
-	@Pattern(regexp = "[\\d]{9}", message = "Kérem, adja meg a 9 számjegyből álló TAJ számát!")
-	private String socialSecurityNumber;
-
-	private Integer idAppointment;
 
 	@AssertTrue(message = "Kérem, fogadja el az adatvédelmi nyilatkozatot!")
 	private boolean agreeGDPR;
@@ -61,14 +60,6 @@ public class PatientDTO {
 		this.socialSecurityNumber = socialSecurityNumber;
 	}
 
-	public Integer getIdAppointment() {
-		return idAppointment;
-	}
-
-	public void setIdAppointment(Integer idAppointment) {
-		this.idAppointment = idAppointment;
-	}
-
 	public boolean isAgreeGDPR() {
 		return agreeGDPR;
 	}
@@ -97,7 +88,6 @@ public class PatientDTO {
 			@NotEmpty(message = "Kérem, adja meg a vezetéknevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String lastName,
 			@NotEmpty(message = "Kérem, adja meg a keresztnevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String firstName,
 			@Pattern(regexp = "[\\d]{9}", message = "Kérem, adja meg a 9 számjegyből álló TAJ számát!") String socialSecurityNumber,
-			Integer idAppointment,
 			@AssertTrue(message = "Kérem, fogadja el az adatvédelmi nyilatkozatot!") boolean agreeGDPR,
 			@NotNull Date dateOfBirth,
 			@Pattern(regexp = "\\d{2}\\-\\d{2}\\/\\d{4}\\-\\d{3}", message = "Kérem, a példa mintájára, helyesen adja meg a telefonszámát!") String phoneNumber) {
@@ -105,7 +95,6 @@ public class PatientDTO {
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.socialSecurityNumber = socialSecurityNumber;
-		this.idAppointment = idAppointment;
 		this.agreeGDPR = agreeGDPR;
 		this.dateOfBirth = dateOfBirth;
 		this.phoneNumber = phoneNumber;

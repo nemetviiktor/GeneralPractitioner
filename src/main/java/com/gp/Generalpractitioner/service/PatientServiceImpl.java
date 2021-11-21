@@ -21,9 +21,10 @@ public class PatientServiceImpl implements PatientService {
 		this.patientRepository = patientRepository;
 	}
 	
+	
 	@Override
-	public Patient findById(int id) {
-		return patientRepository.findById(id).get();
+	public Patient findBySocialSecurityNumber(String socialSecurityNumber) {
+		return patientRepository.findBySocialSecurityNumber(socialSecurityNumber);
 	}
 	
 	@Override
@@ -40,26 +41,22 @@ public class PatientServiceImpl implements PatientService {
 	public List<Patient> findPatientsByDate(List<Appointment> appointments) {
 		List<Patient> patients = new ArrayList<Patient>();
 		for (int i = 0; i < appointments.size(); i++) {
-			patients.add(patientRepository.findByIdAppointment(appointments.get(i)));
+			patients.add(patientRepository.findBySocialSecurityNumber(appointments.get(i).getSocialSecurityNumber().getSocialSecurityNumber()));
 		}
 		return patients;
 	}
 	
+	
 	@Override
-	public Patient updatePatient(PatientDTO patientDTO, int id) {
-		Patient patient = new PatientUtil().convertPatientDTOtoPatient(patientDTO);
-		patient.setIdPatient(id);
-		return patientRepository.save(patient);
+	public Patient updatePatient(PatientDTO patientDTO) {
+		return patientRepository.save(new PatientUtil().convertPatientDTOtoPatient(patientDTO));
 		
 	}
 
 	@Override
-	public Patient findByIdAppointment(Appointment idAppointment) {
-		return patientRepository.findByIdAppointment(idAppointment);
+	public void deletePatient(String id) {
+		patientRepository.deleteById(id);
 	}
+	
 
-	@Override
-	public void deletePatient(Appointment idAppointment) {
-		patientRepository.deleteByIdAppointment(idAppointment);
-	}
 }
