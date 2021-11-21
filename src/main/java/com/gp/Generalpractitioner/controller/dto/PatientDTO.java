@@ -1,29 +1,41 @@
 package com.gp.Generalpractitioner.controller.dto;
 
-import javax.validation.constraints.Digits;
+import java.sql.Date;
+
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class PatientDTO {
-	
-	@NotEmpty(message = "Kérem adja meg a vezetéknevét!")
+
+	@NotEmpty(message = "Kérem, adja meg a vezetéknevét!")
 	@Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.")
 	private String lastName;
-	
-	@NotEmpty(message = "Kérem adja meg a keresztnevét!")
+
+	@NotEmpty(message = "Kérem, adja meg a keresztnevét!")
 	@Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.")
 	private String firstName;
-	
-	//@NotNull(message = "Kérem adja meg a TAJ számát!")
-	@Pattern(regexp="[\\d]{9}", message = "Kérem adja meg a 9 számjegyből álló TAJ számát!")
+
+	@Pattern(regexp = "[\\d]{9}", message = "Kérem, adja meg a 9 számjegyből álló TAJ számát!")
 	private String socialSecurityNumber;
-	
+
 	private Integer idAppointment;
+
+	@AssertTrue(message = "Kérem, fogadja el az adatvédelmi nyilatkozatot!")
+	private boolean agreeGDPR;
+
+	//@Pattern(regexp = "\\d{4}\\-\\d{2}\\-\\d{2}", message = "Kérem, adja meg a születési idejét!")
+	@NotNull
+	private Date dateOfBirth;
+
+	@Pattern(regexp = "\\d{2}\\-\\d{2}\\/\\d{4}\\-\\d{3}", message ="Kérem, a példa mintájára, helyesen adja meg a telefonszámát!")
+	private String phoneNumber;
 
 	public String getLastName() {
 		return lastName;
@@ -57,23 +69,49 @@ public class PatientDTO {
 		this.idAppointment = idAppointment;
 	}
 
+	public boolean isAgreeGDPR() {
+		return agreeGDPR;
+	}
+
+	public void setAgreeGDPR(boolean agreeGDPR) {
+		this.agreeGDPR = agreeGDPR;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public PatientDTO(
-			@NotEmpty(message = "Kérem adja meg a vezetéknevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String lastName,
-			@NotEmpty(message = "Kérem adja meg a keresztnevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String firstName,
-			@Pattern(regexp = "[\\d]{9}", message = "Kérem adja meg a 9 számjegyből álló TAJ számát!") String socialSecurityNumber,
-			Integer idAppointment) {
+			@NotEmpty(message = "Kérem, adja meg a vezetéknevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String lastName,
+			@NotEmpty(message = "Kérem, adja meg a keresztnevét!") @Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.") String firstName,
+			@Pattern(regexp = "[\\d]{9}", message = "Kérem, adja meg a 9 számjegyből álló TAJ számát!") String socialSecurityNumber,
+			Integer idAppointment,
+			@AssertTrue(message = "Kérem, fogadja el az adatvédelmi nyilatkozatot!") boolean agreeGDPR,
+			@NotNull Date dateOfBirth,
+			@Pattern(regexp = "\\d{2}\\-\\d{2}\\/\\d{4}\\-\\d{3}", message = "Kérem, a példa mintájára, helyesen adja meg a telefonszámát!") String phoneNumber) {
 		super();
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.socialSecurityNumber = socialSecurityNumber;
 		this.idAppointment = idAppointment;
+		this.agreeGDPR = agreeGDPR;
+		this.dateOfBirth = dateOfBirth;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public PatientDTO() {
 		super();
 	}
-
-	
-	
-	
 }

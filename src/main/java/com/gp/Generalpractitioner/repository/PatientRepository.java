@@ -11,5 +11,7 @@ import com.gp.Generalpractitioner.model.Patient;
 public interface PatientRepository extends CrudRepository<Patient, Integer> {
 	
 	public Patient findByIdAppointment(Appointment idAppointment);
+	
+	public void deleteByIdAppointment(Appointment idAppointment);
 
 }

@@ -15,6 +15,8 @@ public class PatientUtil {
 		Appointment appointment = new Appointment();
 		appointment.setIdAppointment(patientDTO.getIdAppointment());
 		patient.setIdAppointment(appointment);
+		patient.setDateOfBirth(patientDTO.getDateOfBirth());
+		patient.setPhoneNumber(patientDTO.getPhoneNumber());
 		return patient;
 	}
 	
@@ -24,6 +26,8 @@ public class PatientUtil {
 		patientDTO.setFirstName(patient.getFirstName());
 		patientDTO.setSocialSecurityNumber(patient.getSocialSecurityNumber());
 		patientDTO.setIdAppointment(patient.getIdAppointment().getIdAppointment());
+		patientDTO.setDateOfBirth(patient.getDateOfBirth());
+		patientDTO.setPhoneNumber(patient.getPhoneNumber());
 		return patientDTO;
 	}
 }

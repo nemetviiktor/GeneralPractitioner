@@ -14,38 +14,42 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
-         .masthead {
-         height: 2vh;
-         }
-         #logoutButton {
-         background-color: #ccc;
-         -moz-border-radius: 5px;
-         -webkit-border-radius: 5px;
-         border-radius:6px;
-         color: #fff;
-         font-family: 'Oswald';
-         font-size: 20px;
-         text-decoration: none;
-         cursor: poiner;
-         border:none;
-         }
-         #logoutButton:hover {
-         border: none;
-         background:red;
-         box-shadow: 0px 0px 1px #777;
-         }
-         .center {
-         margin: auto;
-         text-align: center;
-         margin-left: auto;
-         margin-right: auto;
-         width: 60%;
-         padding: 10px;
-         }
-         .td {
-         text-align: center;
-         }
-      </style>
+.masthead {
+	height: 2vh;
+}
+
+#logoutButton {
+	background-color: #ccc;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 6px;
+	color: #fff;
+	font-family: 'Oswald';
+	font-size: 20px;
+	text-decoration: none;
+	cursor: poiner;
+	border: none;
+}
+
+#logoutButton:hover {
+	border: none;
+	background: red;
+	box-shadow: 0px 0px 1px #777;
+}
+
+.center {
+	margin: auto;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 60%;
+	padding: 10px;
+}
+
+.td {
+	text-align: center;
+}
+</style>
 </head>
 <body>
 	<!-- Navigation -->
@@ -64,8 +68,9 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/admin">Bejegyzések</a>
 					</li>
-					<li class="nav-item"><a class="navbar-brand" href="adminReservedAppointments">Időpont
-							menedzselés <span class="sr-only">(current)</span>
+					<li class="nav-item"><a class="navbar-brand"
+						href="adminReservedAppointments">Időpont menedzselés <span
+							class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Receptírás</a>
 					</li>
@@ -87,8 +92,8 @@
 		<div class="container">
 			<div class="col-xl-7 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
 				<h2 class="font-weight-light" style="text-align: center">
-					<a th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></a> <a
-						th:text="${time}"></a> időpont módosítása
+					<b th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></b> <b
+						th:text="${time}"></b> időpont módosítása
 				</h2>
 				<form
 					th:action="@{/admin/update(idAppointment=${patientDTO.idAppointment},id=${id},date=${date},time=${time})}"
@@ -123,11 +128,39 @@
 								name="socialSecurityNumber"
 								th:value="${patientDTO.socialSecurityNumber}"
 								th:classappend="${#fields.hasErrors('patientDTO.socialSecurityNumber')} ? is-invalid">
+							<small class="text-muted">Például: 123456789</small>
 							<div class="text-danger"
 								th:if="${#fields.hasErrors('patientDTO.socialSecurityNumber')}"
 								th:errors="*{patientDTO.socialSecurityNumber}"></div>
 						</div>
 					</div>
+					<div class="form-group row">
+						<label for="dateOfBirth" class="col-sm-2 col-form-label">Születési
+							idő</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" name="dateOfBirth"
+								min="1990-01-01" th:max=${maxDate}
+								th:value="${patientDTO.dateOfBirth}"
+								th:classappend="${#fields.hasErrors('patientDTO.dateOfBirth')} ? is-invalid">
+							<small class="text-muted">Például: 1998.09.18.</small>
+							<div class="text-danger"
+								th:if="${#fields.hasErrors('patientDTO.dateOfBirth')}"
+								th:errors="*{patientDTO.dateOfBirth}"></div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="phoneNumber" class="col-sm-2 col-form-label">Telefonszám</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="phoneNumber"
+								th:value="${patientDTO.phoneNumber}"
+								th:classappend="${#fields.hasErrors('patientDTO.phoneNumber')} ? is-invalid">
+							<small class="text-muted">Például: 06-70/1234-567</small>
+							<div class="text-danger"
+								th:if="${#fields.hasErrors('patientDTO.phoneNumber')}"
+								th:errors="*{patientDTO.phoneNumber}"></div>
+						</div>
+					</div>
+					<input type="hidden" th:value="true" name="agreeGDPR" />
 					<button type="submit" class="btn btn-primary btn-lg btn-block">Módosítás</button>
 				</form>
 			</div>

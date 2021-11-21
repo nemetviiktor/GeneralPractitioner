@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.sql.Date;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +54,10 @@ public class AppointmentController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("booking");
 
-		LocalDate date = LocalDate.now();
-		LocalDate endDate = DateUtil.addDaysSkippingWeekends(date, 4);
-		mav.addObject("date", date);
-		mav.addObject("startDate", date);
+		LocalDate today = LocalDate.now();
+		LocalDate endDate = DateUtil.addDaysSkippingWeekends(today, 8);
+		mav.addObject("date", today);
+		mav.addObject("startDate", today.plusDays(1));
 		mav.addObject("endDate", endDate);
 
 		mav.addObject("appointmentDTO", new AppointmentDTO());
@@ -78,6 +79,8 @@ public class AppointmentController {
 		mav.setViewName("bookingdetails");
 		mav.addObject("date", appointmentDTO.getDate());
 		mav.addObject("time", appointmentDTO.getTime());
+		mav.addObject("dateOfBirth", appointmentDTO.getDate());
+		mav.addObject("maxDate", LocalDate.now());
 		mav.addObject("patientDTO", new PatientDTO());
 		mav.addObject(appointmentDTO);
 		return mav;
@@ -96,7 +99,7 @@ public class AppointmentController {
 		}
 
 		return new ModelAndView("bookingdetails").addObject(patientDTO).addObject(appointmentDTO)
-				.addObject("date", appointmentDTO.getDate()).addObject("time", appointmentDTO.getTime());
+				.addObject("date", appointmentDTO.getDate()).addObject("time", appointmentDTO.getTime()).addObject("dateOfBirth", appointmentDTO.getDate());
 	}
 
 	@RequestMapping(value = "admin/adminReservedAppointments")
@@ -118,13 +121,15 @@ public class AppointmentController {
 		// mav.addObject("patient", patientService.findByIdAppointment(202110290));
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "admin/modify")
 	public ModelAndView showSelectedAppointment(@RequestParam("id") int id) {
 		ModelAndView mav = new ModelAndView();
-		AppointmentDTO appointmentDTO = new AppointmentUtil().convertAppointmentToAppointmentDTO(appointmentService.findById(id));
+		AppointmentDTO appointmentDTO = new AppointmentUtil()
+				.convertAppointmentToAppointmentDTO(appointmentService.findById(id));
 		mav.addObject("date", appointmentDTO.getDate());
 		mav.addObject("time", appointmentDTO.getTime());
+		mav.addObject("maxDate", LocalDate.now());
 		mav.addObject("appointmentDTO", appointmentDTO);
 		Appointment appointment = new Appointment();
 		appointment.setIdAppointment(id);
@@ -135,7 +140,7 @@ public class AppointmentController {
 		mav.setViewName("adminModifyAppointment");
 		return mav;
 	}
-	
+
 	@PostMapping(value = "admin/update")
 	public ModelAndView updatePatient(@Valid @ModelAttribute("patientDTO") PatientDTO patientDTO,
 			BindingResult bindingResult, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO,
@@ -145,15 +150,20 @@ public class AppointmentController {
 			patientService.updatePatient(patientDTO, id);
 			return new ModelAndView("redirect:adminReservedAppointments");
 		}
-		return new ModelAndView("adminModifyAppointment").addObject(patientDTO).addObject(appointmentDTO).addObject("date", appointmentDTO.getDate()).addObject("time", appointmentDTO.getTime()).addObject("id", id);
+		
+		return new ModelAndView("adminModifyAppointment").addObject(patientDTO).addObject(appointmentDTO)
+				.addObject("date", appointmentDTO.getDate()).addObject("time", appointmentDTO.getTime())
+				.addObject("id", id);
 	}
 
+	@Transactional
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam("id") int id) {
 		Appointment appointment = appointmentService.findById(id);
 		if (!appointment.getIdAppointment().equals(id)) {
 			return new ModelAndView("error");
 		}
+		patientService.deletePatient(appointmentService.findById(id));
 		appointmentService.deleteAppointment(id);
 		return new ModelAndView("redirect:admin/adminReservedAppointments");
 	}

@@ -20,4 +20,6 @@ public interface PatientService {
 	public Patient findByIdAppointment(Appointment idAppointment);
 	
 	public Patient updatePatient(PatientDTO patientDTO, int id);
+	
+	public void deletePatient(Appointment idAppointment);
 }

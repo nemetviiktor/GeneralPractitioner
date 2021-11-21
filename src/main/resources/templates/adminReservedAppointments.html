@@ -113,6 +113,8 @@
                      <th scope="col">Vezetéknév</th>
                      <th scope="col">Keresztnév</th>
                      <th scope="col">TAJ szám</th>
+                     <th scope="col">Születési idő</th>
+                     <th scope="col">Telefonszám</th>
                      <th scope="col">Módosítás</th>
                      <th scope="col">Törlés</th>
                   </tr>
@@ -123,6 +125,8 @@
                      <td><a th:text="${patients[iterStat.index].lastName}"></a></td>
                      <td><a th:text="${patients[iterStat.index].firstName}"></a></td>
                      <td><a th:text="${patients[iterStat.index].socialSecurityNumber}"></a></td>
+                     <td><a th:text="${patients[iterStat.index].dateOfBirth}"></a></td>
+                     <td><a th:text="${patients[iterStat.index].phoneNumber}"></a></td>
                      <td><a th:href="@{/admin/modify(id=${appointment.idAppointment})}" class="btn btn-primary">Módosítás</a></td>
                      <td><a th:href="@{/delete(id=${appointment.idAppointment})}" class="btn btn-danger">Időpont törlése</a></td>
                      <!-- th:href="@{/delete(id=${user.id})}" -->

@@ -2,7 +2,6 @@ package com.gp.Generalpractitioner.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.gp.Generalpractitioner.controller.dto.PatientDTO;
 import com.gp.Generalpractitioner.model.Appointment;
 import com.gp.Generalpractitioner.model.Patient;
-import com.gp.Generalpractitioner.repository.AppointmentRepository;
 import com.gp.Generalpractitioner.repository.PatientRepository;
 
 @Service
@@ -37,12 +35,7 @@ public class PatientServiceImpl implements PatientService {
 	public Patient savePatient(PatientDTO patientDTO) {
 		return patientRepository.save(new PatientUtil().convertPatientDTOtoPatient(patientDTO));
 	}
-	/*
-	@Override
-	public Patient findByIdAppointment(int id) {
-		return patientRepository.findByIdAppointment(id);
-	}
-*/
+
 	@Override
 	public List<Patient> findPatientsByDate(List<Appointment> appointments) {
 		List<Patient> patients = new ArrayList<Patient>();
@@ -59,23 +52,14 @@ public class PatientServiceImpl implements PatientService {
 		return patientRepository.save(patient);
 		
 	}
-	
-	
-
-
-	
 
 	@Override
 	public Patient findByIdAppointment(Appointment idAppointment) {
 		return patientRepository.findByIdAppointment(idAppointment);
 	}
 
-	
-
-	/*
 	@Override
-	public Patient findByIdAppointment(Integer idAppointment) {
-		return patientRepository.findByIdAppointment(idAppointment);
+	public void deletePatient(Appointment idAppointment) {
+		patientRepository.deleteByIdAppointment(idAppointment);
 	}
-	*/
 }

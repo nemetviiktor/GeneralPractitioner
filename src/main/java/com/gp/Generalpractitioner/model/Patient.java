@@ -1,6 +1,6 @@
 package com.gp.Generalpractitioner.model;
 
-import java.util.Set;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -30,9 +29,15 @@ public class Patient {
 	@Column(name = "social_security_number")
 	private String socialSecurityNumber;
 
+	@Column(name = "date_of_birth")
+	private Date dateOfBirth;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
 	// @Column(name="fk_appointment_id")
 	// private Integer idAppointment;
-	
+
 	@OneToOne
 	@JoinColumn(name = "appointment_id")
 	private Appointment idAppointment;
@@ -77,13 +82,31 @@ public class Patient {
 		this.idAppointment = idAppointment;
 	}
 
-	public Patient(Integer idPatient, String lastName, String firstName, String socialSecurityNumber,
-			Appointment idAppointment) {
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Patient(Integer idPatient, String lastName, String firstName, String socialSecurityNumber, Date dateOfBirth,
+			String phoneNumber, Appointment idAppointment) {
 		super();
 		this.idPatient = idPatient;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.socialSecurityNumber = socialSecurityNumber;
+		this.dateOfBirth = dateOfBirth;
+		this.phoneNumber = phoneNumber;
 		this.idAppointment = idAppointment;
 	}
 
