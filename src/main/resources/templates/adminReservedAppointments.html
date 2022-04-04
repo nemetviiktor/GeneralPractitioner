@@ -1,144 +1,202 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="UTF-8">
-      <title>Időpont menedzselés</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-      <style>
-         .masthead {
-         height: 2vh;
-         }
-         #logoutButton {
-         background-color: #ccc;
-         -moz-border-radius: 5px;
-         -webkit-border-radius: 5px;
-         border-radius:6px;
-         color: #fff;
-         font-family: 'Oswald';
-         font-size: 20px;
-         text-decoration: none;
-         cursor: poiner;
-         border:none;
-         }
-         #logoutButton:hover {
-         border: none;
-         background:red;
-         box-shadow: 0px 0px 1px #777;
-         }
-         .center {
-         margin: auto;
-         text-align: center;
-         margin-left: auto;
-         margin-right: auto;
-         width: 60%;
-         padding: 10px;
-         }
-         .td {
-         text-align: center;
-         }
-      </style>
-   </head>
-   <body>
-      <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-         <div class="container">
-            <a class="navbar-brand" href="#">Szendrőlád</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                     <a class="nav-link" href="/">Kezdőlap
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/admin">Bejegyzések</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="navbar-brand" href="#">Időpont menedzselés
-                     <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Receptírás</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Dokumentumok</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link">
-                        <form th:action="@{/logout}" method="post">
-                           <input type="submit" id="logoutButton" value="Kijelentkezés" />
-                        </form>
-                     </a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-      <!-- Full Page Image Header with Vertically Centered Content -->
-      <header class="masthead">
-      </header>
-      <!-- Page Content -->
-      <section class="py-5">
-         <div class="container">
-            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
-               <div class="p-3"><i class="fa fa-calendar fa-5x"></i></div>
-               <form class="justify-content-center" th:action="@{adminReservedAppointments}" method="post" th:object="${appointmentDTO}">
-                  <div class="form-group row">
-                     <h3>Melyik napot szeretné lekérdezni?</h3>
-                  </div>
-                  <div class="form-group row" >
-                     <input type="date" name="date" th:value="${date}" class="form-control">
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-lg btn-block">Lekérdezés</button>
-               </form>
-            </div>
-            <hr>
-         </div>
-      </section>
-      <div class="container">
-         <h2 class="font-weight-light" style="text-align:center"><b th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></b> napra lefoglalt időpontok</h2>
-         <div class="table-responsive-sm">
-            <table class="table text-center">
-               <thead class="thead-dark">
-                  <tr>
-                     <th scope="col">Időpont</th>
-                     <th scope="col">Vezetéknév</th>
-                     <th scope="col">Keresztnév</th>
-                     <th scope="col">TAJ szám</th>
-                     <th scope="col">Születési idő</th>
-                     <th scope="col">Telefonszám</th>
-                     <th scope="col">Módosítás</th>
-                     <th scope="col">Törlés</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr th:each="appointment,iterStat : ${appointments}">
-                     <td><a th:text="${appointment.time}"></a></td>
-                     <td><a th:text="${patients[iterStat.index].lastName}"></a></td>
-                     <td><a th:text="${patients[iterStat.index].firstName}"></a></td>
-                     <td><a th:text="${patients[iterStat.index].socialSecurityNumber}"></a></td>
-                     <td><a th:text="${patients[iterStat.index].dateOfBirth}"></a></td>
-                     <td><a th:text="${patients[iterStat.index].phoneNumber}"></a></td>
-                     <td><a th:href="@{/admin/modify(id=${appointment.idAppointment})}" class="btn btn-primary">Módosítás</a></td>
-                     <td><a th:href="@{/delete(id=${appointment.idAppointment})}" class="btn btn-danger">Időpont törlése</a></td>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-         <table>
-		
-	</table>
-      </div>
-      <div class="jumbotron text-center" style="margin-bottom:0">
-         <p>Footer</p>
-      </div>
-   </body>
+<head>
+<meta charset="UTF-8">
+<title>Időpont menedzselés</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/adminStyle.css">
+<link rel="stylesheet" href="/css/tableStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<!-- Navigation -->
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Szendrőlád</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Kezdőlap
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/admin">Bejegyzések</a>
+					</li>
+					<li class="nav-item active"><a class="navbar-brand"
+						href="/admin/adminReservedAppointments">Időpont menedzselés <span
+							class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/admin/findMedicine">Gyógyszerkereső</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/admin/documents">Dokumentumok</a></li>
+					<li class="nav-item"><a class="nav-link">
+							<form th:action="@{/logout}" method="post">
+								<input type="submit" id="logoutButton" value="Kijelentkezés" />
+							</form>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Full Page Image Header with Vertically Centered Content -->
+	<header class="masthead"> </header>
+	<!-- Page Content -->
+	<section class="py-5">
+		<div class="container">
+			<div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
+				<div class="p-3">
+					<i class="fa fa-calendar fa-5x"></i>
+				</div>
+				<form class="justify-content-center"
+					th:action="@{adminReservedAppointments}" method="post"
+					th:object="${appointmentDTO}">
+					<div class="form-group row">
+						<h3>Melyik napot szeretné lekérdezni?</h3>
+					</div>
+					<div class="form-group row">
+						<input type="date" name="date" th:value="${date}"
+							class="form-control">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Lekérdezés</button>
+				</form>
+			</div>
+			<hr>
+		</div>
+	</section>
+	<div class="container">
+		<h2 class="font-weight-light" style="text-align: center">
+			<b th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></b> napra
+			lefoglalt időpontok
+		</h2>
+		<div class="table-responsive-sm">
+			<table class="table text-center">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Időpont</th>
+						<th scope="col">Vezetéknév</th>
+						<th scope="col">Keresztnév</th>
+						<th scope="col">TAJ szám</th>
+						<th scope="col">Születési idő</th>
+						<th scope="col">Telefonszám</th>
+						<th scope="col">Vizsgálat</th>
+						<th scope="col">Módosítás</th>
+						<th scope="col">Törlés</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="appointment,iterStat : ${appointments}">
+						<td><a th:text="${appointment.time}"></a></td>
+						<td><a th:text="${patients[iterStat.index].lastName}"></a></td>
+						<td><a th:text="${patients[iterStat.index].firstName}"></a></td>
+						<td><a
+							th:text="${patients[iterStat.index].socialSecurityNumber}"></a></td>
+						<td><a th:text="${patients[iterStat.index].dateOfBirth}"></a></td>
+						<td><a th:text="${patients[iterStat.index].phoneNumber}"></a></td>
+						<td><a th:text="${appointment.medicalExamination}"></a></td>
+						<td><a
+							th:href="@{/admin/modify(id=${appointment.idAppointment})}"
+							class="btn btn-primary">Módosítás</a></td>
+						<td><a th:href="@{/delete(id=${appointment.idAppointment})}"
+							class="btn btn-danger">Időpont törlése</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<table>
+
+		</table>
+	</div>
+	<!-- Footer -->
+	<footer class="jumbotron text-center" style="margin-bottom: 0">
+
+		<!-- Footer Links -->
+		<div class="container text-center text-md-left mt-3">
+
+			<!-- Grid row -->
+			<div class="row mt-3 dark-grey-text">
+
+				<!-- Grid column -->
+				<div class="col-md mb-3">
+
+					<!-- Content -->
+					<h6 class="text-uppercase font-weight-bold">Dr. Daher Chakib
+						Pierre</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>háziorvos</p>
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md mx-auto mb-3">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Hasznos linkek</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>
+						<a class="dark-grey-text" href="https://www.mentok.hu/">Országos
+							Mentőszolgálat</a>
+					</p>
+					<p>
+						<a class="dark-grey-text" href="http://szendrolad.hu/">Szendrőlád
+							Község honlapja</a>
+					</p>
+					<p>
+						<a class="dark-grey-text"
+							href="https://www.eeszt.gov.hu/hu/nyito-oldal">EESZT
+							Lakossági Portál</a>
+					</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md mx-auto mb-3">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Elérhetőség</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>Rendelési idő: Hétfő - Péntek 8:00 - 12:00</p>
+					<p>3751 Szendrőlád, Fő utca 63.</p>
+					<p>+36 48 469 670</p>
+
+
+				</div>
+				<!-- Grid column -->
+
+			</div>
+			<!-- Grid row -->
+
+		</div>
+		<!-- Footer Links -->
+		<!-- Copyright -->
+		<p class="text-center">
+			<a class="nav-link" href="/privacyNotice">Adatvédelmi tájékoztató</a>
+		</p>
+		<div class="text-center text-black-50 py-3">Készítette: Német
+			Viktor</div>
+
+		<!-- Copyright -->
+	</footer>
+	<!-- Footer -->
+</body>
 </html>

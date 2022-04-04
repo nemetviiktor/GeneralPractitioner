@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Időpont módosítás</title>
+<title>Új dokumentum létrehozása</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -15,7 +15,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 	<!-- Navigation -->
@@ -34,14 +33,13 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="/admin">Bejegyzések</a>
 					</li>
+					<li class="nav-item"><a class="nav-link"
+						href="/admin/adminReservedAppointments">Időpont menedzselés </a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/admin/findMedicine">Gyógyszerkereső </a></li>
 					<li class="nav-item active"><a class="navbar-brand"
-						href="/admin/adminReservedAppointments">Időpont menedzselés <span
-							class="sr-only">(current)</span>
+						href="/admin/documents">Dokumentumok<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="/admin/findMedicine">Gyógyszerkereső</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="/admin/documents">Dokumentumok</a></li>
 					<li class="nav-item"><a class="nav-link">
 							<form th:action="@{/logout}" method="post">
 								<input type="submit" id="logoutButton" value="Kijelentkezés" />
@@ -56,33 +54,24 @@
 	<!-- Page Content -->
 	<section class="py-5">
 		<div class="container">
-			<div class="col-xl-7 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
-				<h2 class="font-weight-light" style="text-align: center">
-					<b th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></b> <b
-						th:text="${time}"></b> időpont adatainak módosítása
-				</h2>
-				<form th:action="@{/admin/update(date=${date},time=${time})}"
+			<div class="col-xl-7 col-lg-6 col-md-8 col-sm-10 mx-auto text-left">
+				<h2 class="font-weight-light" style="text-align: center">Új
+					dokumentum létrehozása</h2>
+				<form
+					th:action="@{/createDocument(socialSecurityNumber=${patientDTO.socialSecurityNumber})}"
 					method="post">
 					<div class="form-group row">
 						<label for="lastName" class="col-sm-2 col-form-label">Vezetéknév</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="lastName"
-								th:value="${patientDTO.lastName}"
-								th:classappend="${#fields.hasErrors('patientDTO.lastName')} ? is-invalid">
-							<div class="text-danger"
-								th:if="${#fields.hasErrors('patientDTO.lastName')}"
-								th:errors="*{patientDTO.lastName}"></div>
+								th:value="${patientDTO.lastName}" disabled>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="firstName" class="col-sm-2 col-form-label">Keresztnév</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="firstName"
-								th:value="${patientDTO.firstName}"
-								th:classappend="${#fields.hasErrors('patientDTO.firstName')} ? is-invalid">
-							<div class="text-danger"
-								th:if="${#fields.hasErrors('patientDTO.firstName')}"
-								th:errors="*{patientDTO.firstName}"></div>
+								th:value="${patientDTO.firstName}" disabled>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -91,54 +80,88 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control"
 								name="socialSecurityNumber"
-								th:value="${patientDTO.socialSecurityNumber}"
-								th:classappend="${#fields.hasErrors('patientDTO.socialSecurityNumber')} ? is-invalid">
-							<small class="text-muted">Például: 123456789</small>
-							<div class="text-danger"
-								th:if="${#fields.hasErrors('patientDTO.socialSecurityNumber')}"
-								th:errors="*{patientDTO.socialSecurityNumber}"></div>
+								th:value="${patientDTO.socialSecurityNumber}" disabled>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="dateOfBirth" class="col-sm-2 col-form-label">Születési
 							idő</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" name="dateOfBirth"
-								min="1900-01-01" th:max=${maxDate}
-								th:value="${patientDTO.dateOfBirth}"
-								th:classappend="${#fields.hasErrors('patientDTO.dateOfBirth')} ? is-invalid">
-							<small class="text-muted">Például: 1998.09.18.</small>
-							<div class="text-danger"
-								th:if="${#fields.hasErrors('patientDTO.dateOfBirth')}"
-								th:errors="*{patientDTO.dateOfBirth}"></div>
+							<input type="text" class="form-control" name="dateOfBirth"
+								th:value="${patientDTO.dateOfBirth}" disabled>
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="phoneNumber" class="col-sm-2 col-form-label">Telefonszám</label>
+						<label for="title" class="col-sm-2 col-form-label">Dokumentum
+							cím</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="phoneNumber"
-								th:value="${patientDTO.phoneNumber}"
-								th:classappend="${#fields.hasErrors('patientDTO.phoneNumber')} ? is-invalid">
-							<small class="text-muted">Például: 06-70/1234-567</small>
+							<input type="text" class="form-control" name="title"
+								th:value="${documentDTO.title}"
+								th:classappend="${#fields.hasErrors('documentDTO.title')} ? is-invalid">
 							<div class="text-danger"
-								th:if="${#fields.hasErrors('patientDTO.phoneNumber')}"
-								th:errors="*{patientDTO.phoneNumber}"></div>
+								th:if="${#fields.hasErrors('documentDTO.title')}"
+								th:errors="*{documentDTO.title}"></div>
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="medicalExamination" class="col-sm-2 col-form-label">Vizsgálat</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="medicalExamination"
-								th:value="${appointmentDTO.medicalExamination}"
-								th:classappend="${#fields.hasErrors('appointmentDTO.medicalExamination')} ? is-invalid">
-							<small class="text-muted">Például: Magas vérnyomás</small>
-							<div class="text-danger"
-								th:if="${#fields.hasErrors('appointmentDTO.medicalExamination')}"
-								th:errors="*{appointmentDTO.medicalExamination}"></div>
+						<label for="diet" class="col-sm-4 col-form-label">Speciális
+							diétára szorul-e:</label>
+						<div class="col-sm-1">
+							<input type="checkbox" class="form-control" name="diet"
+								th:value="true">
 						</div>
 					</div>
-					<input type="hidden" th:value="true" name="agreeGDPR" />
-					<button type="submit" class="btn btn-primary btn-lg btn-block">Módosítás</button>
+					<div class="form-group row">
+						<label for="dietDescription" class="col-sm-2 col-form-label">Ha
+							igen: milyen:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="dietDescription"
+								th:value="${documentDTO.dietDescription}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="psychiatricDisorder" class="col-sm-4 col-form-label">Pszichiátriai
+							megbetegedésben szenved-e:</label>
+						<div class="col-sm-1">
+							<input type="checkbox" class="form-control"
+								name="psychiatricDisorder" th:value="true">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="disability" class="col-sm-4 col-form-label">Fogyatékosságban
+							szenved-e:</label>
+						<div class="col-sm-1">
+							<input type="checkbox" class="form-control" name="disability"
+								th:value="true">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="disabilityDescription" class="col-sm-2 col-form-label">Ha
+							igen: milyen:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control"
+								name="disabilityDescription"
+								th:value="${documentDTO.disabilityDescription}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="infectiousDisease" class="col-sm-4 col-form-label">Szenved-e
+							jelenleg fertőző betegségben:</label>
+						<div class="col-sm-1">
+							<input type="checkbox" class="form-control"
+								name="infectiousDisease" th:value="true">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="note" class="col-sm-3 col-form-label">A
+							háziorvos egyéb megjegyzései:</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="note"
+								th:value="${documentDTO.note}">
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Létrehozás</button>
 				</form>
 			</div>
 		</div>

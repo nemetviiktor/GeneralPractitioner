@@ -2,7 +2,6 @@ package com.gp.Generalpractitioner.service;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 import com.gp.Generalpractitioner.controller.dto.AppointmentDTO;
 import com.gp.Generalpractitioner.model.Appointment;

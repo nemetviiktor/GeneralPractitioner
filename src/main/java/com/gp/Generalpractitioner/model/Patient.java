@@ -4,11 +4,9 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +22,6 @@ public class Patient {
 
 	@Column(name = "first_name")
 	private String firstName;
-
 
 	@Column(name = "date_of_birth")
 	private Date dateOfBirth;
@@ -74,7 +71,6 @@ public class Patient {
 
 	public Patient(String socialSecurityNumber, String lastName, String firstName, Date dateOfBirth,
 			String phoneNumber) {
-		super();
 		this.socialSecurityNumber = socialSecurityNumber;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -82,11 +78,6 @@ public class Patient {
 		this.phoneNumber = phoneNumber;
 	}
 
-
-
-
-
 	public Patient() {
-		super();
 	}
 }

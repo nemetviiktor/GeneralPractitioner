@@ -52,7 +52,6 @@ public class NewsDTO {
 
 	public NewsDTO(Date date, @NotEmpty(message = "Kérem adja meg a címet!") String title,
 			@NotEmpty(message = "Kérem adja meg a leírást!") String description, Integer idUser) {
-		super();
 		this.date = date;
 		this.title = title;
 		this.description = description;

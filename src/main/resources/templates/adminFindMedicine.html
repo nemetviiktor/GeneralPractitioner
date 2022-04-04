@@ -11,40 +11,14 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/adminStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<style>
-.navbar-custom .navbar-brand, .navbar-custom .navbar-text {
-	color: red;
-}
 
-.masthead {
-	height: 2vh;
-}
-
-#logoutButton {
-	background-color: #ccc;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 6px;
-	color: #fff;
-	font-family: 'Oswald';
-	font-size: 20px;
-	text-decoration: none;
-	cursor: poiner;
-	border: none;
-}
-
-#logoutButton:hover {
-	border: none;
-	background: red;
-	box-shadow: 0px 0px 1px #777;
-}
-</style>
 </head>
 <body>
 	<!-- Navigation -->
@@ -65,11 +39,12 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/admin/adminReservedAppointments">Időpont menedzselés </a></li>
-					<li class="nav-item"><a class="navbar-brand" href="#">Gyógyszerkereső
-							<span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="navbar-brand"
+						href="/admin/findMedicine">Gyógyszerkereső <span
+							class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Dokumentumok</a>
-					</li>
+					<li class="nav-item"><a class="nav-link"
+						href="/admin/documents">Dokumentumok</a></li>
 					<li class="nav-item"><a class="nav-link">
 							<form th:action="@{/logout}" method="post">
 								<input type="submit" id="logoutButton" value="Kijelentkezés" />
@@ -103,8 +78,80 @@
 			</div>
 		</div>
 	</section>
-	<div class="jumbotron text-center" style="margin-bottom: 0">
-		<p>Footer</p>
-	</div>
+	<!-- Footer -->
+	<footer class="jumbotron text-center" style="margin-bottom: 0">
+
+		<!-- Footer Links -->
+		<div class="container text-center text-md-left mt-3">
+
+			<!-- Grid row -->
+			<div class="row mt-3 dark-grey-text">
+
+				<!-- Grid column -->
+				<div class="col-md mb-3">
+
+					<!-- Content -->
+					<h6 class="text-uppercase font-weight-bold">Dr. Daher Chakib
+						Pierre</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>háziorvos</p>
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md mx-auto mb-3">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Hasznos linkek</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>
+						<a class="dark-grey-text" href="https://www.mentok.hu/">Országos
+							Mentőszolgálat</a>
+					</p>
+					<p>
+						<a class="dark-grey-text" href="http://szendrolad.hu/">Szendrőlád
+							Község honlapja</a>
+					</p>
+					<p>
+						<a class="dark-grey-text"
+							href="https://www.eeszt.gov.hu/hu/nyito-oldal">EESZT
+							Lakossági Portál</a>
+					</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md mx-auto mb-3">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Elérhetőség</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>Rendelési idő: Hétfő - Péntek 8:00 - 12:00</p>
+					<p>3751 Szendrőlád, Fő utca 63.</p>
+					<p>+36 48 469 670</p>
+
+
+				</div>
+				<!-- Grid column -->
+
+			</div>
+			<!-- Grid row -->
+
+		</div>
+		<!-- Footer Links -->
+		<!-- Copyright -->
+		<p class="text-center">
+			<a class="nav-link" href="/privacyNotice">Adatvédelmi tájékoztató</a>
+		</p>
+		<div class="text-center text-black-50 py-3">Készítette: Német
+			Viktor</div>
+
+		<!-- Copyright -->
+	</footer>
+	<!-- Footer -->
 </body>
 </html>

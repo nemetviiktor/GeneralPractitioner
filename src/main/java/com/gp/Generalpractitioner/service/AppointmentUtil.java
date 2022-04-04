@@ -56,6 +56,7 @@ public class AppointmentUtil {
 		appointment.setDate(appointmentDTO.getDate());
 		appointment.setIndex(appointmentDTO.getIndex());
 		appointment.setTime(appointmentDTO.getTime());
+		appointment.setMedicalExamination(appointmentDTO.getMedicalExamination());
 		return appointment;
 	}
 	
@@ -66,6 +67,7 @@ public class AppointmentUtil {
 		appointmentDTO.setDate(appointment.getDate());
 		appointmentDTO.setTime(appointment.getTime());
 		appointmentDTO.setIndex(appointment.getIndex());
+		appointmentDTO.setMedicalExamination(appointment.getMedicalExamination());
 		appointmentDTO.setSocialSecurityNumber(appointment.getSocialSecurityNumber().getSocialSecurityNumber());
 		return appointmentDTO;
 	}

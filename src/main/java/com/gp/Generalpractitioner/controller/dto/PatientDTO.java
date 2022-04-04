@@ -3,13 +3,11 @@ package com.gp.Generalpractitioner.controller.dto;
 import java.sql.Date;
 
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class PatientDTO {
@@ -25,11 +23,9 @@ public class PatientDTO {
 	@Size(max = 25, message = "Legfeljebb 25 karakter hosszú lehet.")
 	private String firstName;
 
-
 	@AssertTrue(message = "Kérem, fogadja el az adatvédelmi nyilatkozatot!")
 	private boolean agreeGDPR;
 
-	//@Pattern(regexp = "\\d{4}\\-\\d{2}\\-\\d{2}", message = "Kérem, adja meg a születési idejét!")
 	@NotNull
 	private Date dateOfBirth;
 
@@ -91,7 +87,6 @@ public class PatientDTO {
 			@AssertTrue(message = "Kérem, fogadja el az adatvédelmi nyilatkozatot!") boolean agreeGDPR,
 			@NotNull Date dateOfBirth,
 			@Pattern(regexp = "\\d{2}\\-\\d{2}\\/\\d{4}\\-\\d{3}", message = "Kérem, a példa mintájára, helyesen adja meg a telefonszámát!") String phoneNumber) {
-		super();
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.socialSecurityNumber = socialSecurityNumber;
@@ -101,6 +96,5 @@ public class PatientDTO {
 	}
 
 	public PatientDTO() {
-		super();
 	}
 }

@@ -1,58 +1,26 @@
-package com.gp.Generalpractitioner.model;
+package com.gp.Generalpractitioner.controller.dto;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
-@Entity
-@Table(name = "document")
-public class Document {
+public class DocumentDTO {
 
-	@Id
-	@Column(name = "document_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idDocument;
 
-	@Column(name = "title")
+	@NotEmpty(message = "Kérem, adja meg a dokumentum címét!")
 	private String title;
 
-	@Column(name = "diet")
 	private boolean diet;
-
-	@Column(name = "diet_description")
 	private String dietDescription;
-
-	@Column(name = "psychiatric_disorder")
 	private boolean psychiatricDisorder;
-
-	@Column(name = "disability")
 	private boolean disability;
-
-	@Column(name = "disability_description")
 	private String disabilityDescription;
-
-	@Column(name = "infectious_disease")
 	private boolean infectiousDisease;
-
-	@Column(name = "note")
 	private String note;
-
-	@Column(name = "date")
+	private String socialSecurityNumber;
 	private Date date;
-
-	@Column(name = "file_Name")
 	private String fileName;
-
-	@ManyToOne
-	@JoinColumn(name = "patient_id")
-	private Patient socialSecurityNumber;
 
 	public Integer getIdDocument() {
 		return idDocument;
@@ -126,6 +94,14 @@ public class Document {
 		this.note = note;
 	}
 
+	public String getSocialSecurityNumber() {
+		return socialSecurityNumber;
+	}
+
+	public void setSocialSecurityNumber(String socialSecurityNumber) {
+		this.socialSecurityNumber = socialSecurityNumber;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -142,17 +118,11 @@ public class Document {
 		this.fileName = fileName;
 	}
 
-	public Patient getSocialSecurityNumber() {
-		return socialSecurityNumber;
-	}
-
-	public void setSocialSecurityNumber(Patient socialSecurityNumber) {
-		this.socialSecurityNumber = socialSecurityNumber;
-	}
-
-	public Document(Integer idDocument, String title, boolean diet, String dietDescription, boolean psychiatricDisorder,
-			boolean disability, String disabilityDescription, boolean infectiousDisease, String note, Date date,
-			String fileName, Patient socialSecurityNumber) {
+	public DocumentDTO(Integer idDocument, @NotEmpty(message = "Kérem, adja meg a dokumentum címét!") String title,
+			boolean diet, String dietDescription, boolean psychiatricDisorder, boolean disability,
+			String disabilityDescription, boolean infectiousDisease, String note, String socialSecurityNumber,
+			Date date, String fileName) {
+		super();
 		this.idDocument = idDocument;
 		this.title = title;
 		this.diet = diet;
@@ -162,11 +132,12 @@ public class Document {
 		this.disabilityDescription = disabilityDescription;
 		this.infectiousDisease = infectiousDisease;
 		this.note = note;
+		this.socialSecurityNumber = socialSecurityNumber;
 		this.date = date;
 		this.fileName = fileName;
-		this.socialSecurityNumber = socialSecurityNumber;
 	}
 
-	public Document() {
+	public DocumentDTO() {
 	}
+
 }

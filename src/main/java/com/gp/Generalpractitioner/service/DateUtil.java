@@ -19,6 +19,13 @@ public class DateUtil {
 		return replacedDate;
 	}
 	
+	public String replaceHyphenDate(Date date) {
+		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = inputFormat.format(date);
+		String replacedDate = dateString.replace("-", ".");
+		return replacedDate;
+	}
+	
 	public static LocalDate addDaysSkippingWeekends(LocalDate date, int days) {
 		LocalDate result = date;
 		int addedDays = 0;

@@ -25,4 +25,19 @@ public class IndexController {
 		model.addAttribute("news", newsService.listNews());
 		return "index";
 	}
+	
+	@RequestMapping(value = "/privacyNotice", method = RequestMethod.GET)
+	public String privacyNotice() {
+		return "privacyNotice";
+	}
+	
+	@RequestMapping(value = "/surgery", method = RequestMethod.GET)
+	public String surgery() {
+		return "surgery";
+	}
+	
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	public String contact() {
+		return "contact";
+	}
 }

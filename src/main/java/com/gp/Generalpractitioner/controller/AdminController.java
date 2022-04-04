@@ -11,10 +11,4 @@ public class AdminController {
 
 		return "login";
 	}
-	
-	@RequestMapping("/error/403")
-	public String admin() {
-		
-		return "login";
-	}
 }

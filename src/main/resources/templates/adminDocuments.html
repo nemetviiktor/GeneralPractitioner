@@ -2,18 +2,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bejelentkezés</title>
+<title>Dokumentumok</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/defaultStyle.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/adminStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<!-- Navigation -->
@@ -30,37 +35,45 @@
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link" href="/">Kezdőlap
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="/booking">Időpontfoglalás</a></li>
-					<li class="nav-item"><a class="nav-link" href="/surgery">Rendelő
+					<li class="nav-item"><a class="nav-link" href="/admin">Bejegyzések</a>
+					</li>
+					<li class="nav-item"><a class="nav-link"
+						href="/admin/adminReservedAppointments">Időpont menedzselés </a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/admin/findMedicine">Gyógyszerkereső </a></li>
+					<li class="nav-item active"><a class="navbar-brand"
+						href="/admin/documents">Dokumentumok<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="/contact">Kapcsolat</a></li>
+					<li class="nav-item"><a class="nav-link">
+							<form th:action="@{/logout}" method="post">
+								<input type="submit" id="logoutButton" value="Kijelentkezés" />
+							</form>
+					</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<!-- Full Page Image Header with Vertically Centered Content -->
 	<header class="masthead"> </header>
+
 	<!-- Page Content -->
 	<section class="py-5">
 		<div class="container">
-			<div class="text-center p-3">
-				<h2 class="font-weight-light">Adminisztrációs felület</h2>
-			</div>
-			<div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
-				<div th:if="${param.error}">Érvénytelen felhasználónév vagy
-					jelszó.</div>
-				<div th:if="${param.logout}">Sikeresen kijelentkezett.</div>
-				<form th:action="@{/login}" method="post"
-					class="justify-content-center">
+			<div class="col-xl-6 mx-auto text-center">
+				<div class="text-center p-3">
+					<h2 class="font-weight-light">Dokumentum lekérdezés, készítés</h2>
+				</div>
+				<form th:action="@{/admin/findPatientBySocialSecurityNumber}"
+					method="post" th:object="${patientDTO}">
 					<div class="form-group row">
-						<input type="text" class="form-control" name="username"
-							placeholder="Felhasználónév">
+						<label for="socialSecurityNumber" class="col-sm-3 col-form-label">TAJ
+							szám</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="socialSecurityNumber"
+								th:field="*{socialSecurityNumber}">
+						</div>
 					</div>
-					<div class="form-group row">
-						<input type="password" class="form-control" name="password"
-							placeholder="Jelszó" />
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg btn-block">Bejelentkezés</button>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Keresés</button>
 				</form>
 			</div>
 		</div>

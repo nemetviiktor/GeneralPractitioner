@@ -2,11 +2,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bejelentkezés</title>
+<title>Rendelő</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="/css/defaultStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -14,6 +20,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<style>
+</style>
 </head>
 <body>
 	<!-- Navigation -->
@@ -33,7 +42,8 @@
 					<li class="nav-item"><a class="nav-link" href="/booking">Időpontfoglalás</a></li>
 					<li class="nav-item"><a class="nav-link" href="/surgery">Rendelő
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="/contact">Kapcsolat</a></li>
+					<li class="nav-item-active"><a class="navbar-brand"
+						href="/contact">Kapcsolat<span class="sr-only">(current)</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -43,25 +53,43 @@
 	<!-- Page Content -->
 	<section class="py-5">
 		<div class="container">
-			<div class="text-center p-3">
-				<h2 class="font-weight-light">Adminisztrációs felület</h2>
+			<div class="row">
+				<div class="col-sm text-center">
+					<h3>Háziorvosi rendeléssel kapcsolatos alapinformációk:</h3>
+				</div>
 			</div>
-			<div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
-				<div th:if="${param.error}">Érvénytelen felhasználónév vagy
-					jelszó.</div>
-				<div th:if="${param.logout}">Sikeresen kijelentkezett.</div>
-				<form th:action="@{/login}" method="post"
-					class="justify-content-center">
-					<div class="form-group row">
-						<input type="text" class="form-control" name="username"
-							placeholder="Felhasználónév">
-					</div>
-					<div class="form-group row">
-						<input type="password" class="form-control" name="password"
-							placeholder="Jelszó" />
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg btn-block">Bejelentkezés</button>
-				</form>
+			<div class="row">
+				<div class="col-sm font-weight-bold text-right">Ellátást végző
+					orvos neve:</div>
+				<div class="col-sm text-left">Dr. Daher Chakib Pierre
+					háziorvos</div>
+			</div>
+			<div class="row">
+				<div class="col-sm font-weight-bold text-right">Rendelő
+					telefonszáma:</div>
+				<div class="col-sm text-left">+36 48 469 670</div>
+			</div>
+			<div class="row">
+				<div class="col-sm font-weight-bold text-right">Rendelő címe:</div>
+				<div class="col-sm text-left">3751 Szendrőlád, Fő utca 63.</div>
+			</div>
+			<div class="row">
+				<div class="col-sm font-weight-bold text-right">Rendelési idő:</div>
+				<div class="col-sm text-left">Hétfő - Péntek 8.00-12.00</div>
+			</div>
+			<div class="row">
+				<div class="col-sm font-weight-bold text-danger text-center">Rendelési
+					időn kívül súlyos esetben kérjük, hogy hívja az orvosi ügyeletet
+					vagy a mentőket!</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-sm text-center">
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5972.45257793743!2d20.739248373150456!3d48.343653618405824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473f6e23a3bdf713%3A0xc813212e7627c2c3!2zU3plbmRyxZFsw6FkLCBGxZEgw7p0IDYzLCAzNzUx!5e1!3m2!1shu!2shu!4v1637492492829!5m2!1shu!2shu"
+						width="600" height="450" style="border: 0;" allowfullscreen=""
+						loading="lazy"></iframe>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -140,5 +168,7 @@
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->
+
 </body>
+
 </html>

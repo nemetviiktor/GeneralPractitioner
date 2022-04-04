@@ -46,20 +46,4 @@ public class NewsController {
 		}
 		return new ModelAndView("adminPosts").addObject("newsDTO", newsDTO);
 	}
-
 }
-
-/*
- * @PostMapping("/addmessage") public ModelAndView
- * addMessage(@Valid @ModelAttribute("messageDTO") MessageDTO messageDTO,
- * BindingResult bindingResult){
- * 
- * if (!bindingResult.hasErrors()) { String date = new Date().toString();
- * messageDTO.setDate(date); messageService.saveMessage(messageDTO); return new
- * ModelAndView("redirect:/"); }
- * 
- * User user = userService.findById(messageDTO.getToid()).orElse(new User());
- * return new
- * ModelAndView("sendmessage").addObject(user).addObject("messageDTO",
- * messageDTO);
- */

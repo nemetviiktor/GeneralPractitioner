@@ -1,87 +1,95 @@
 package com.gp.Generalpractitioner.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.stream.Stream;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.gp.Generalpractitioner.controller.dto.DocumentDTO;
+import com.gp.Generalpractitioner.controller.dto.PatientDTO;
+import com.gp.Generalpractitioner.model.Patient;
+import com.gp.Generalpractitioner.service.DateUtil;
 import com.gp.Generalpractitioner.service.DocumentService;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.gp.Generalpractitioner.service.DocumentUtil;
+import com.gp.Generalpractitioner.service.PatientService;
+import com.gp.Generalpractitioner.service.PatientUtil;
 
 @Controller
 public class DocumentController {
 
 	private DocumentService documentService;
+	private PatientService patientService;
 
 	@Autowired
 	public void setDocumentService(DocumentService documentService) {
 		this.documentService = documentService;
 	}
 
-	@RequestMapping(value = "/pdf", method = RequestMethod.GET)
-	public String Pdf(Model model) throws FileNotFoundException, DocumentException {
-
-		Document document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream("iTextTable.pdf"));
-
-		document.open();
-
-		PdfPTable table = new PdfPTable(3);
-		addTableHeader(table);
-		addRows(table);
-
-		document.add(table);
-		document.close();
-
-		return "index";
+	@Autowired
+	public void setPatientService(PatientService patientService) {
+		this.patientService = patientService;
 	}
 
-	@GetMapping(value = "/pdfOpen")
-	public void showPDF(HttpServletResponse response) throws IOException {        //<a th:href="@{/pdf/Manjaro-User-Guide.pdf}">Show Pdf file</a>
-		response.setContentType("application/pdf");
-		// response.setHeader("Content-Disposition", "attachment;
-		// filename=\"demo.pdf\"");
-		String location = "iTextHelloWorld.pdf";
-		InputStream inputStream = new FileInputStream(new File(location));
-		int nRead;
-		while ((nRead = inputStream.read()) != -1) {
-			response.getWriter().write(nRead);
+	@RequestMapping(value = "admin/documents")
+	public ModelAndView findPatient() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("patientDTO", new PatientDTO());
+		mav.setViewName("adminDocuments");
+		return mav;
+	}
+
+	@RequestMapping(value = "admin/findPatientBySocialSecurityNumber")
+	public ModelAndView showPatientBySocialSecurityNumber(@ModelAttribute("patientDTO") PatientDTO patientDTO) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("patient", patientService.findBySocialSecurityNumber(patientDTO.getSocialSecurityNumber()));
+		Patient patient = new Patient();
+		patient.setSocialSecurityNumber(patientDTO.getSocialSecurityNumber());
+		mav.addObject("documents", documentService.findDocumentsBySocialSecurityNumber(patient));
+		mav.setViewName("adminListDocuments");
+		return mav;
+	}
+
+	@RequestMapping(value = "admin/newDocument")
+	public ModelAndView createNewDocument(@ModelAttribute("patientDTO") PatientDTO patientDTO,
+			@RequestParam String socialSecurityNumber) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("patientDTO", patientService.findBySocialSecurityNumber(socialSecurityNumber));
+
+		DocumentDTO documentDTO = new DocumentDTO();
+		documentDTO.setSocialSecurityNumber(socialSecurityNumber);
+		mav.addObject("documentDTO", documentDTO);
+		mav.setViewName("adminCreateNewDocument");
+		return mav;
+	}
+
+	@PostMapping("/createDocument")
+	public ModelAndView createDocument(@Valid @ModelAttribute("documentDTO") DocumentDTO documentDTO,
+			BindingResult bindingResult, @ModelAttribute("patientDTO") PatientDTO patientDTO,
+			@RequestParam String socialSecurityNumber) throws IOException {
+
+		if (!bindingResult.hasErrors()) {
+			documentDTO.setSocialSecurityNumber(socialSecurityNumber);
+			documentDTO.setDate(new DateUtil().getCurrentDate());
+			documentDTO.setFileName(new DocumentUtil().generateFileName(documentDTO));
+			documentService.saveDocument(documentDTO);
+			Patient patient = new Patient();
+			patient = patientService.findBySocialSecurityNumber(socialSecurityNumber);
+			patientDTO = new PatientUtil().convertPatientToPatientDTO(patient);
+			new DocumentUtil().createPdfDocument(documentDTO, patientDTO);
+
+			return new ModelAndView("redirect:/admin/documents");
 		}
-	}
-	
 
-
-	private void addTableHeader(PdfPTable table) {
-		Stream.of("column header 1", "column header 2", "column header 3").forEach(columnTitle -> {
-			PdfPCell header = new PdfPCell();
-			header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-			header.setBorderWidth(2);
-			header.setPhrase(new Phrase(columnTitle));
-			table.addCell(header);
-		});
-	}
-
-	private void addRows(PdfPTable table) {
-		table.addCell("row 1, col 1");
-		table.addCell("row 1, col 2");
-		table.addCell("row 1, col 3");
+		return new ModelAndView("adminCreateNewDocument").addObject("documentDTO", documentDTO)
+				.addObject("patientDTO", patientService.findBySocialSecurityNumber(socialSecurityNumber))
+				.addObject(socialSecurityNumber);
 	}
 }

@@ -2,32 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kezdőlap</title>
+<title>Szendrőládi háziorvosi rendelő oldala</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/indexStyle.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<style>
-.fakeimg {
-	height: 200px;
-	background: #aaa;
-}
 
-.masthead {
-	height: 100vh;
-	min-height: 500px;
-	background-image: url('/img/headerimage.jpg');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-</style>
 </head>
 <body>
 	<!-- Navigation -->
@@ -42,14 +29,14 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Kezdőlap
+					<li class="nav-item active"><a class="navbar-brand" href="/">Kezdőlap
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="booking">Foglalás</a>
+					<li class="nav-item"><a class="nav-link" href="/booking">Időpontfoglalás</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Rendelő</a>
+					<li class="nav-item"><a class="nav-link" href="/surgery">Rendelő</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Kapcsolat</a>
+					<li class="nav-item"><a class="nav-link" href="/contact">Kapcsolat</a>
 					</li>
 				</ul>
 			</div>
@@ -73,7 +60,7 @@
 			<h2 class="font-weight-light">Bemutatkozás</h2>
 			<div>Dr. Daher Chakib Pierre vagyok, háziorvos. 1960-ban
 				születtem Libanonban. Orvosi diplomámat 1989-ben a Semmelweis
-				Egyetemen szereztem. Immáron 24 éve, 1996-tól praktizálok
+				Egyetemen szereztem. Immáron 25 éve, 1996-tól praktizálok
 				háziorvosként Szendrőládon. A háziorvosi ellátás nem más mint, az
 				egészségügyi ellátásra jogosultak számára a lakóhelyén, vagy annak
 				közelében, nemtől, kortól és betegség természetéből függetlenül
@@ -129,7 +116,11 @@
 						<a class="dark-grey-text" href="http://szendrolad.hu/">Szendrőlád
 							Község honlapja</a>
 					</p>
-
+					<p>
+						<a class="dark-grey-text"
+							href="https://www.eeszt.gov.hu/hu/nyito-oldal">EESZT
+							Lakossági Portál</a>
+					</p>
 
 				</div>
 				<!-- Grid column -->
@@ -141,12 +132,9 @@
 					<h6 class="text-uppercase font-weight-bold">Elérhetőség</h6>
 					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
 						style="width: 60px;">
-					<p>
-						<i class="dark-grey-text"></i>3751 Szendrőlád, Fő utca 63.
-					</p>
-					<p>
-						<i class="dark-grey-text"></i>+36 48 469 670
-					</p>
+					<p>Rendelési idő: Hétfő - Péntek 8:00 - 12:00</p>
+					<p>3751 Szendrőlád, Fő utca 63.</p>
+					<p>+36 48 469 670</p>
 
 
 				</div>
@@ -158,8 +146,12 @@
 		</div>
 		<!-- Footer Links -->
 		<!-- Copyright -->
-		<div class="footer-copyright text-center text-black-50 py-3">
-			Készítette: Német Viktor</div>
+		<p class="text-center">
+			<a class="nav-link" href="privacyNotice">Adatvédelmi tájékoztató</a>
+		</p>
+		<div class="text-center text-black-50 py-3">Készítette: Német
+			Viktor</div>
+
 		<!-- Copyright -->
 	</footer>
 	<!-- Footer -->

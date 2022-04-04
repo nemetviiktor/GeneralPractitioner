@@ -3,8 +3,6 @@ package com.gp.Generalpractitioner.controller;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.sql.Date;
-import java.util.Calendar;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -13,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +24,7 @@ import com.gp.Generalpractitioner.model.Patient;
 import com.gp.Generalpractitioner.service.AppointmentService;
 import com.gp.Generalpractitioner.service.AppointmentUtil;
 import com.gp.Generalpractitioner.service.DateUtil;
+import com.gp.Generalpractitioner.service.DocumentService;
 import com.gp.Generalpractitioner.service.PatientService;
 import com.gp.Generalpractitioner.service.PatientUtil;
 
@@ -37,6 +33,7 @@ public class AppointmentController {
 
 	private AppointmentService appointmentService;
 	private PatientService patientService;
+	private DocumentService documentService;
 
 	@Autowired
 	public void setAppointmentService(AppointmentService appointmentService) {
@@ -47,8 +44,11 @@ public class AppointmentController {
 	public void setPatientService(PatientService patientService) {
 		this.patientService = patientService;
 	}
-
-	// DATET ÁTNÉZNI
+	
+	@Autowired
+	public void setDocumentService(DocumentService documentService) {
+		this.documentService = documentService;
+	}
 
 	@RequestMapping(value = "/booking")
 	public ModelAndView getAllApointments() {
@@ -80,26 +80,23 @@ public class AppointmentController {
 		mav.setViewName("bookingdetails");
 		mav.addObject("date", appointmentDTO.getDate());
 		mav.addObject("time", appointmentDTO.getTime());
-		//mav.addObject("dateOfBirth", appointmentDTO.getDate());
 		mav.addObject("maxDate", LocalDate.now());
 		mav.addObject("patientDTO", new PatientDTO());
 		mav.addObject(appointmentDTO);
 		return mav;
 	}
 
-	//@Transactional
 	@PostMapping("/reserveAppointment")
 	public ModelAndView reserveAppointment(@Valid @ModelAttribute("patientDTO") PatientDTO patientDTO,
-			BindingResult bindingResult, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
+			BindingResult bindingResult, @Valid @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO, BindingResult bindingResult2) {
 
-		if (!bindingResult.hasErrors()) {
+		if (!bindingResult.hasErrors() && !bindingResult2.hasErrors()) {
 			appointmentDTO.setIndex(new AppointmentUtil().string2index(appointmentDTO.getTime()));
 			appointmentDTO.setIdAppointment(new AppointmentUtil().generateIndex(appointmentDTO));
-			Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
 			patientService.savePatient(patientDTO);
 			appointmentDTO.setSocialSecurityNumber(patientService.findBySocialSecurityNumber(patientDTO.getSocialSecurityNumber()).getSocialSecurityNumber());
 			appointmentService.saveAppointment(appointmentDTO);
-			return new ModelAndView("redirect:/");
+			return new ModelAndView("successfulReserving");
 		}
 
 		return new ModelAndView("bookingdetails").addObject(patientDTO).addObject(appointmentDTO)
@@ -134,8 +131,6 @@ public class AppointmentController {
 		mav.addObject("time", appointmentDTO.getTime());
 		mav.addObject("maxDate", LocalDate.now());
 		mav.addObject("appointmentDTO", appointmentDTO);
-		//Appointment appointment = new Appointment();
-		//appointment.setIdAppointment(id);
 		Patient patient = appointmentService.findById(id).getSocialSecurityNumber();
 		mav.addObject("patientDTO", new PatientUtil().convertPatientToPatientDTO(patient));
 
@@ -145,10 +140,12 @@ public class AppointmentController {
 	
 	@PostMapping(value = "admin/update")
 	public ModelAndView updatePatient(@Valid @ModelAttribute("patientDTO") PatientDTO patientDTO,
-			BindingResult bindingResult, @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO) {
-		if (!bindingResult.hasErrors()) {
+			BindingResult bindingResult, @Valid @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO, BindingResult bindingResult2) {
+		if (!bindingResult.hasErrors() && !bindingResult2.hasErrors()) {
 			patientService.updatePatient(patientDTO);
 			appointmentDTO.setSocialSecurityNumber(patientDTO.getSocialSecurityNumber());
+			appointmentDTO.setIndex(new AppointmentUtil().string2index(appointmentDTO.getTime()));
+			appointmentService.saveAppointment(appointmentDTO);
 			return new ModelAndView("redirect:adminReservedAppointments");
 		}
 		
@@ -164,8 +161,7 @@ public class AppointmentController {
 			return new ModelAndView("error");
 		}
 		appointmentService.deleteAppointment(appointment.getSocialSecurityNumber());
-		patientService.deletePatient(appointment.getSocialSecurityNumber().getSocialSecurityNumber());
+		documentService.deleteDocument(appointment.getSocialSecurityNumber());
 		return new ModelAndView("redirect:admin/adminReservedAppointments");
 	}
-
 }

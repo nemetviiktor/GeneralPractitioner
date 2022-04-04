@@ -6,20 +6,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="medicine")
+@Table(name = "medicine")
 public class Medicine {
-	
+
 	@Id
-	@Column(name="medicine_id")
+	@Column(name = "medicine_id")
 	private Integer idMedicine;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="active_ingredient")
+
+	@Column(name = "active_ingredient")
 	private String activeIngredient;
-	
-	@Column(name="prescription")
+
+	@Column(name = "prescription")
 	private boolean prescription;
 
 	public Integer getIdMedicine() {

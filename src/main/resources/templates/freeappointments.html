@@ -1,66 +1,141 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="UTF-8">
-      <title>Foglalás</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-      <style>
-         .masthead {
-         height: 2vh;
-         }
-      </style>
-   </head>
-   <body>
-      <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-         <div class="container">
-            <a class="navbar-brand" href="#">Szendrőlád</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                     <a class="nav-link" href="/">Kezdőlap
-                     </a>
-                  </li>
-                  <li class="nav-item active">
-                     <a class="nav-link" href="#">Foglalás
-                     <span class="sr-only">(current)</span>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Rendelő</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="#">Kapcsolat</a>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-      <!-- Full Page Image Header with Vertically Centered Content -->
-      <header class="masthead">
-      </header>
-      <!-- Page Content -->
-      <section class="py-5">
-         <div class="container">
-            <h2 class="font-weight-light" style="text-align:center"><a th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></a> napon szabad időpontok</h2>
-            <table class="table col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
-               <tr th:each="appointment: ${appointments}">
-                  <td><a th:text="${appointment}" th:href="@{/reserve(date=${date},time=${appointment})}" button type="button" class="btn btn-primary btn-lg btn-block"></button></a></td>
-               </tr>
-            </table>
-            <hr>
-         </div>
-      </section>
-      <div class="jumbotron text-center" style="margin-bottom:0">
-         <p>Footer</p>
-      </div>
-   </body>
+<head>
+<meta charset="UTF-8">
+<title>Foglalás</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/defaultStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<!-- Navigation -->
+	<nav
+		class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Szendrőlád</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Kezdőlap
+					</a></li>
+					<li class="nav-item active"><a class="navbar-brand"
+						href="/booking">Időpontfoglalás <span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/surgery">Rendelő</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="/contact">Kapcsolat</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Full Page Image Header with Vertically Centered Content -->
+	<header class="masthead"> </header>
+	<!-- Page Content -->
+	<section class="py-5">
+		<div class="container">
+			<h2 class="font-weight-light" style="text-align: center">
+				<a th:text="${#dates.format(date, 'yyyy.MM.dd.')}"></a> napon szabad
+				időpontok
+			</h2>
+			<table
+				class="table col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center">
+				<tr th:each="appointment: ${appointments}">
+					<td><a th:text="${appointment}"
+						th:href="@{/reserve(date=${date},time=${appointment})}" button
+						type="button" class="btn btn-primary btn-lg btn-block"></button></a></td>
+				</tr>
+			</table>
+			<hr>
+		</div>
+	</section>
+	<!-- Footer -->
+	<footer class="jumbotron text-center" style="margin-bottom: 0">
+
+		<!-- Footer Links -->
+		<div class="container text-center text-md-left mt-3">
+
+			<!-- Grid row -->
+			<div class="row mt-3 dark-grey-text">
+
+				<!-- Grid column -->
+				<div class="col-md mb-3">
+
+					<!-- Content -->
+					<h6 class="text-uppercase font-weight-bold">Dr. Daher Chakib
+						Pierre</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>háziorvos</p>
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md mx-auto mb-3">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Hasznos linkek</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>
+						<a class="dark-grey-text" href="https://www.mentok.hu/">Országos
+							Mentőszolgálat</a>
+					</p>
+					<p>
+						<a class="dark-grey-text" href="http://szendrolad.hu/">Szendrőlád
+							Község honlapja</a>
+					</p>
+					<p>
+						<a class="dark-grey-text"
+							href="https://www.eeszt.gov.hu/hu/nyito-oldal">EESZT
+							Lakossági Portál</a>
+					</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<!-- Grid column -->
+				<div class="col-md mx-auto mb-3">
+
+					<!-- Links -->
+					<h6 class="text-uppercase font-weight-bold">Elérhetőség</h6>
+					<hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto"
+						style="width: 60px;">
+					<p>Rendelési idő: Hétfő - Péntek 8:00 - 12:00</p>
+					<p>3751 Szendrőlád, Fő utca 63.</p>
+					<p>+36 48 469 670</p>
+
+
+				</div>
+				<!-- Grid column -->
+
+			</div>
+			<!-- Grid row -->
+
+		</div>
+		<!-- Footer Links -->
+		<!-- Copyright -->
+		<p class="text-center">
+			<a class="nav-link" href="/privacyNotice">Adatvédelmi tájékoztató</a>
+		</p>
+		<div class="text-center text-black-50 py-3">Készítette: Német
+			Viktor</div>
+
+		<!-- Copyright -->
+	</footer>
+	<!-- Footer -->
+</body>
 </html>

@@ -14,28 +14,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "news")
 public class News {
-	
+
 	@Id
-	@Column(name="news_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "news_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idNews;
-	
-	@Column(name="date")
+
+	@Column(name = "date")
 	private Date date;
-	
-	@Column(name="title")
+
+	@Column(name = "title")
 	private String title;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
 	private String description;
-	
-	//@Column(name="fk_user_id")
-	//private Integer idUser;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User idUser;
-	
+
 	public Integer getIdnews() {
 		return idNews;
 	}
@@ -81,7 +78,6 @@ public class News {
 	}
 
 	public News(Integer idNews, Date date, String title, String description, User idUser) {
-		super();
 		this.idNews = idNews;
 		this.date = date;
 		this.title = title;
